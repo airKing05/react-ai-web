@@ -12,11 +12,12 @@
     display: flex;
     justify-content: space-between;
     height: 100px;
-    background-color: rgb(176, 103, 243);
+    background-color: rgba(64, 147, 107);
     padding: 10px;
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
 }
+
 .chatPopup_header__you{
     height: 100%;
     display: flex;
@@ -30,12 +31,12 @@
 .chatPopup_header__you span {
     font-size: 2rem;
     font-weight: 600;
-    color: white;
+    color: rgb(193, 245, 230);
 }
 
 .chatPopup_chatArea{
     padding: 10px;
-    background-color: rgb(230, 209, 250);
+    background-color: white;
     height: calc(100% - 160px);
     overflow-y: auto;
 }
@@ -57,15 +58,16 @@
 .chat_msg_you {
     max-width: 80%;
     padding: 10px;
-    border-radius: 5px;
-    background-color: rgb(176, 103, 243);
-    color: white;
+    border-radius: 15px 15px 15px 0px;
+    background-color: rgb(245, 245, 245);
+    color: rgb(149, 149, 149);
 }
 .chat_msg_me {
     max-width: 80%;
     padding: 10px;
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, .1);
+    border-radius: 15px 15px 0px 15px;
+    background-color: rgba(64, 147, 107);
+    color: rgb(193, 245, 230);
 }
 
 .chatPopup_inputArea{
@@ -73,6 +75,10 @@
     padding: 10px;
     display: flex;
     /* border: 1px solid black; */
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+    border-bottom-left-radius: inherit;
+    border-bottom-right-radius: inherit;
+    /* border-top: 1px solid rgba(9, 30, 66, 0.25); */
     /* gap: 2rem; */
     align-items: center;
     justify-content: space-between;
@@ -84,5 +90,11 @@
     padding-left: 4px;
     margin-left: 1px;
     border: none;
-    border-bottom: 2px solid rgb(176, 103, 243);
+    color: rgb(109, 108, 108);
+   
+    /* border-bottom: 2px solid rgb(176, 103, 243); */
+}
+
+.chatPopup_inputArea input::placeholder {
+    color: rgb(175, 175, 175);
 }

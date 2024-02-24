@@ -20,6 +20,10 @@ a {
   color: inherit;
 }
 
+button {
+  cursor: pointer;
+}
+
 html {
   box-sizing: border-box;
 }

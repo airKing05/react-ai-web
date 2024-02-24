@@ -2,8 +2,8 @@ import React from 'react'
 import Header from '../../components/Header/Header'
 import { Route, Routes } from 'react-router-dom'
 import Chat from '../Chat/Chat'
-import Calendar from '../Calendar/Calendar'
 import PageNotFound from '../PageNotFound/PageNotFound'
+import CustomCalendar from '../Calendar/CustomCalendar'
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
        <Header/>
        <Routes>
         <Route path='/chat' element={<Chat />} exact />
-        <Route path='/calendar' element={<Calendar />} exact />
+        <Route path='/calendar' element={<CustomCalendar />} exact />
         {/* <Route path="*" element={<PageNotFound />} /> */}
        </Routes>
     </div>
