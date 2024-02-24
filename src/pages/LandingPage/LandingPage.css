@@ -5,13 +5,19 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: url('https://images.unsplash.com/photo-1707727726616-2db19ad7e6b1?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background: url('https://www.futurepedia.io/diamond-lattice.png');
+    /* background: url('https://images.unsplash.com/photo-1707727726616-2db19ad7e6b1?q=80&w=1548&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); */
     background-repeat: no-repeat;
     background-size: cover;
     padding-inline: 2rem;
 }
 
-.home_container h1 {
+.home_content__heading{
+    width: 60%;
+    text-align: center;
+}
+
+.home_content__heading h1 {
     font-size: 3rem;
     font-weight: 900;
     background-image: url("https://media.geeksforgeeks.org/wp-content/uploads/20231218222854/1.png");
@@ -24,25 +30,27 @@
         helvetica, arial, sans-serif;
     -webkit-font-smoothing: antialiased;
 }
-.home_container h4 {
+.home_content__heading h6 {
     font-size: 2rem;
     font-weight: 700;
     font-style: italic;
-    text-decoration:underline;
+    margin-top: 1rem;
+    /* text-decoration:underline; */
 }
 
-.home_container button {
+.home_content__heading button {
     font-size: 1rem;
     font-weight: 600;
-    padding: .5rem 2rem;
+    padding: 1rem 7rem;
     border-radius: 2rem;
     border: none;
+    margin-top: 2rem;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border: 4px solid rgb(216, 227, 237);
     
 }
-.home_container button:hover {
-   background-color: rgb(176, 103, 243);
-   color: white;
-   border: none;
+.home_content__heading button:hover {
+   background-color: rgb(246, 246, 246);
+   color: rgb(80, 79, 79);
    scale: 1;
 }

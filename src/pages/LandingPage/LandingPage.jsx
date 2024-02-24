@@ -10,9 +10,12 @@ export default function Home() {
     }
     return (
         <div className='home_container'>
-            <h1>This is new react app for managing daily activities</h1>
-            <h4>by Vite</h4>
-            <button className='btn' onClick={handleClick}>Go to active</button>
+        <div className='home_content__heading'>
+                <h1>This is new react app for managing daily activities</h1>
+                <h6>Build and deploy an AI Copilot in a day. It connects to your API,</h6>
+                <button className='btn' onClick={handleClick}>Go to active</button>
+        </div>
+           
         </div>
     )
 }
