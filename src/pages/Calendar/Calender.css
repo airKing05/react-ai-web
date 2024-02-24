@@ -1,0 +1,6 @@
+.calender_container {
+    padding: 1rem 2rem;
+    height: calc(100vh - 60px);
+    overflow-y: auto;
+    border: 1px solid blue;
+}

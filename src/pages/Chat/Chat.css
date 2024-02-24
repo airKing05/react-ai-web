@@ -1,0 +1,10 @@
+.chat__container {
+    position: relative;
+}
+
+.chat_content {
+    padding-inline: 2rem;
+    padding-top: 1rem;
+    height: calc(100vh - 140px);
+    overflow-y: auto;
+}
