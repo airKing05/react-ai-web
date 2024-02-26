@@ -16,3 +16,23 @@
     font-size: larger;
     color: #ba7ff1;
 }
+
+.rbc-month-view{
+border-radius: 3px
+}
+.rbc-header{
+   padding-top: 5px !important;
+   padding-bottom: 5px !important;
+}
+/* .rbc-day-bg +  */
+.rbc-button-link{
+   font-weight: bold;
+}
+.rbc-date-cell {
+    /* color: rgb(15, 114, 226); */
+    color: #ba7ff1;
+}
+.rbc-today {
+   
+    background-color: rgb(196, 226, 250) !important;
+}

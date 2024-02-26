@@ -12,8 +12,8 @@ const navigationPath = [
     path: '/layout/calendar',
   },
   {
-    pathName: 'Page-3',
-    path: '/layout/page-3',
+    pathName: 'Timer',
+    path: '/layout/timer',
   },
   {
     pathName: 'Page-4',
@@ -50,6 +50,18 @@ const navigationPath = [
   {
     pathName: 'Page-12',
     path: '/layout/page-12',
+  },
+  {
+    pathName: 'Page-13',
+    path: '/layout/page-13',
+  },
+  {
+    pathName: 'Page-14',
+    path: '/layout/page-14',
+  },
+  {
+    pathName: 'Page-15',
+    path: '/layout/page-15',
   }
 ]
 

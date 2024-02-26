@@ -9,7 +9,6 @@ export default function Chat() {
         <div className='chat__container'>
             <div className='chat_content'>
                 <h2>Chat with us</h2>
-            Content goes here
             {
                 showChatPopup ? <ChatPopup 
                         showChatPopup={showChatPopup}

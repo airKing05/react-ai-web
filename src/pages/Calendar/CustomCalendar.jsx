@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./Calender.css";
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment'
+import EventDetailPopup from './Components/EventDetailPopup/EventDetailPopup';
 
 const localizer = momentLocalizer(moment);
 
@@ -20,8 +21,10 @@ const events = [
 ]
 
 export default function CustomCalendar() {
+  const [showEventDetails, setShowEventDetails] = useState(false)
   return (
     <div className='calender_container'>
+      <div onClick={() => setShowEventDetails(true)}>Show Event Details</div>
       <Calendar
         localizer={localizer}
         events={events}
@@ -29,6 +32,14 @@ export default function CustomCalendar() {
         endAccessor="end"
         // style={{ height: 500 }}
       />
+      {
+        showEventDetails ? <div className='popup_bg__overlay'></div> : null
+      }
+      {
+        showEventDetails ? <div className='popup_container'>
+          <EventDetailPopup setShowEventDetails={setShowEventDetails}/>
+        </div> : null
+      }
     </div>
   )
 }

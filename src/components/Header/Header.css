@@ -16,6 +16,9 @@
 .header__logo h3 {
   font-weight: 700;
   cursor: pointer;
+  color: rgba(229, 213, 168, 0.728);
+  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+  background-color: transparent;
 }
 
 .header__links {
@@ -45,12 +48,12 @@
 .active {
   color: rgb(176, 103, 243);
   font-weight: bold;
-  border-bottom: 4px solid rgb(176, 103, 243);
+  border-bottom: 2px solid rgb(176, 103, 243);
   /* transition-duration: 2s; */
 }
 
 .nav_text {
   padding: .8rem;
-  font-weight: 600;
+  font-weight: 500;
   /* letter-spacing: 1px; */
 }
