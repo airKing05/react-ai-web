@@ -1,5 +1,33 @@
-.timer__container{
-    border: 1px solid red;
+.timer__container {
     width: 100%;
     height: calc(100vh - 60px);
+    /* display: flex;
+    justify-content: center; */
+}
+
+.timer_clock__Container {
+    width: 500px;
+    height: 500px;
+    position: relative;
+    left: 33%;
+}
+
+.timer_controller__container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 2rem;
+}
+
+.timer_controller__container input {
+    /* padding: .8rem 4rem; */
+    border-radius: 5px;
+    padding-inline: .8rem;
+    width: ;
+}
+
+.timer_controller__container button {
+    padding: .8rem 4rem;
+    border: none;
+    border-radius: 5px;
 }
