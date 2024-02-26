@@ -23,11 +23,19 @@
     /* padding: .8rem 4rem; */
     border-radius: 5px;
     padding-inline: .8rem;
-    width: ;
+    border: 1px solid rgb(133, 133, 133);
+}
+
+.disabled__btn {
+    background-color: rgba(239, 239, 239) !important;
+    color: rgb(133, 133, 133) !important;
 }
 
 .timer_controller__container button {
     padding: .8rem 4rem;
     border: none;
     border-radius: 5px;
+    background-color: rgba(239, 100, 81);
+    color: #ffffff;
+   
 }

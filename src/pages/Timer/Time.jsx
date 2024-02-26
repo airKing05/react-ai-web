@@ -15,16 +15,13 @@ export default function Time() {
   const [inputTime, setInputTime] = useState(null);
 
   const handleStartTimer = () => {
-   
-
-    if (inputTime){
-      const newTotalTime = +inputTime *60;
+    if (inputTime) {
+      const newTotalTime = +inputTime * 60;
       setTotalTime(newTotalTime);
       setTime(0);
     }
+    setInputTime('')
   }
-
-  console.log("totalTime", totalTime)
 
   useEffect(() => {
     let timer = setInterval(() => {
@@ -55,11 +52,17 @@ export default function Time() {
   return (
     <div className='timer__container'>
       <div className='timer_controller__container'>
-        <input placeholder='Dial time' type='number' value={inputTime} onChange={(e) => setInputTime(e.target.value)}/>
-        <button className='timer__start'
+        <input
+          placeholder='Dial time in minutes'
+          type='number'
+          value={inputTime}
+          onChange={(e) => setInputTime(e.target.value)}
+        />
+        <button className={`${inputTime ? '' : 'disabled__btn'} timer__start enter_btn` }
           onClick={() => handleStartTimer()}
+          disabled={inputTime ? false : true}
         >Start</button>
-    </div>
+      </div>
       <div className='timer_controller__container'>
         {
           isPaused ? <button className='timer__start'
