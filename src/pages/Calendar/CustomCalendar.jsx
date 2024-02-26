@@ -4,6 +4,8 @@ import { Calendar, momentLocalizer } from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment'
 import EventDetailPopup from './Components/EventDetailPopup/EventDetailPopup';
+import { useDispatch, useSelector } from 'react-redux';
+import { openEventPopupActionCreator } from '../../redux/actions/calendarActions';
 
 const localizer = momentLocalizer(moment);
 
@@ -27,12 +29,17 @@ const events = [
 
 export default function CustomCalendar() {
   const [showEventDetails, setShowEventDetails] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null)
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
+  const dispatch = useDispatch();
+  const showEventDetailsPopup = useSelector((state) => state.calendar.showEventPopup);
+  // console.log("showEventDetailsPopup", showEventDetailsPopup)
 
   const handleSelected = (event) => {
+    dispatch(openEventPopupActionCreator(true))
     // console.log("event", event)
     setSelectedEvent(event);
-    setShowEventDetails(true)
+    // setShowEventDetails(true)
   };
   return (
     <div className='calender_container'>
@@ -46,10 +53,10 @@ export default function CustomCalendar() {
         // style={{ height: 500 }}
       />
       {
-        showEventDetails ? <div className='popup_bg__overlay'></div> : null
+        showEventDetailsPopup ? <div className='popup_bg__overlay'></div> : null
       }
       {
-        showEventDetails ? <div className='popup_container'>
+        showEventDetailsPopup ? <div className='popup_container'>
           <EventDetailPopup 
           setShowEventDetails={setShowEventDetails}
           selectedEvent={selectedEvent}

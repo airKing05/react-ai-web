@@ -1,0 +1,1 @@
+export const OPEN_EVENT_POPUP = "OPEN_EVENT_POPUP";
