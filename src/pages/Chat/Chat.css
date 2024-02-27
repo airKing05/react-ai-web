@@ -8,3 +8,7 @@
     height: calc(100vh - 140px);
     overflow-y: auto;
 }
+
+.chat_content h2{
+  color: #202020;
+}

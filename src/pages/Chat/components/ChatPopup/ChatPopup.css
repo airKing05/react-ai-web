@@ -12,7 +12,8 @@
     display: flex;
     justify-content: space-between;
     height: 100px;
-    background-color: rgba(64, 147, 107);
+    background-color: rgb(176, 103, 243);
+    /* background-color: rgba(64, 147, 107); */
     padding: 10px;
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
@@ -31,7 +32,8 @@
 .chatPopup_header__you span {
     font-size: 2rem;
     font-weight: 600;
-    color: rgb(193, 245, 230);
+    /* color: rgb(193, 245, 230); */
+    color: #ffffff;
 }
 
 .chatPopup_chatArea{
@@ -60,14 +62,17 @@
     padding: 10px;
     border-radius: 15px 15px 15px 0px;
     background-color: rgb(245, 245, 245);
-    color: rgb(149, 149, 149);
+    /* color: rgb(149, 149, 149); */
+    color: #202020;
 }
 .chat_msg_me {
     max-width: 80%;
     padding: 10px;
     border-radius: 15px 15px 0px 15px;
-    background-color: rgba(64, 147, 107);
-    color: rgb(193, 245, 230);
+    /* background-color: rgba(64, 147, 107); */
+    background-color: rgb(176, 103, 243);
+    /* color: rgb(193, 245, 230); */
+    color: #ffffff;
 }
 
 .chatPopup_inputArea{
@@ -90,7 +95,8 @@
     padding-left: 4px;
     margin-left: 1px;
     border: none;
-    color: rgb(109, 108, 108);
+    /* color: rgb(109, 108, 108); */
+    color: #202020;
    
     /* border-bottom: 2px solid rgb(176, 103, 243); */
 }

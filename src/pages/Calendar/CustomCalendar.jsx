@@ -33,7 +33,6 @@ export default function CustomCalendar() {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [eventsData, setEventsData] = useState(events);
 
-
   const dispatch = useDispatch();
   const showEventDetailsPopup = useSelector((state) => state.calendar.showEventPopup);
   // console.log("showEventDetailsPopup", showEventDetailsPopup)
@@ -45,13 +44,14 @@ export default function CustomCalendar() {
   };
 
   const handleSelectSlot = (slotInfo) => {
-    // dispatch(openEventPopupActionCreator(true))
-    // const newEvent = {
-    //     title: "khbskfhbsd",
-    //     start: slotInfo.start,
-    //     end: slotInfo.end,
-    //   };
-    // setSelectedEvent(newEvent)
+    console.log("slotInfo", slotInfo)
+    dispatch(openEventPopupActionCreator(true))
+    const newEvent = {
+        title: "New event",
+        start: slotInfo.start,
+        end: slotInfo.end,
+      };
+    setSelectedEvent(newEvent)
 
     // const title = window.prompt('Enter event title:');
     // if (title) {

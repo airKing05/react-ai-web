@@ -101,7 +101,8 @@ h6 {
 }
 
 .btn_save {
-    background-color: #dc4c3e;
+    /* background-color: #dc4c3e; */
+    background-color: rgb(176, 103, 243);
     color: #ffffff;
 }
 
@@ -173,6 +174,14 @@ h6 {
     border: 1px solid #eeeeee;
 }
 
+.event_details__input_event_name{
+    margin-top: .1rem;
+    border: 1px solid #999999;
+    padding: .5rem;
+    border-radius: 5px;
+    color: #202020;
+}
+
 
 
 /* time picker  */
@@ -204,4 +213,13 @@ input[type='time']::-webkit-calendar-picker-indicator {
     width: 100%;
     position: absolute;
     background: transparent;
+}
+
+input[type='time']::-webkit-calendar-picker-indicator {
+    filter: invert(30%) sepia(95%) saturate(7500%) hue-rotate(130deg) brightness(100%) contrast(90%);
+}
+
+input[type='time']::-webkit-calendar-picker-dropdown {
+    background-color: green !important;
+    /* Change to your desired background color */
 }

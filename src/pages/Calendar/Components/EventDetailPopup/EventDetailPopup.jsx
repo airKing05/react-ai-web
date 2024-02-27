@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import "./EventDetailsPopup.css";
 import { useDispatch } from 'react-redux';
 import { openEventPopupActionCreator } from '../../../../redux/actions/calendarActions';
@@ -10,7 +10,7 @@ const mergedDateTime = (date, modifiedTime) => {
         minute: modifiedTime.minutes(),
         second: modifiedTime.seconds()
     });
-    const finalFormattedDate = newDate.format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ [(India Standard Time)]');
+    const finalFormattedDate = newDate.format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ [(India Standard Time)]");
     return finalFormattedDate;
 }
 
@@ -19,8 +19,12 @@ export default function EventDetailPopup(props) {
     const [showPrimaryEventContentBorder, setPrimaryEventContentBorder] = useState(false);
     const [primaryEventContentInputValue, setPrimaryEventContentInputValue] = useState('');
     const [showCommentBox, setShowCommentBox] = useState(false);
+    const [isTitleInputActive, setIsTitleInputActive] = useState(false);
     const [endTime, setEndTime] = useState(moment(selectedEvent.end).format('HH:mm:ss'));
-    const [startTime, setStartTime] = useState(moment(selectedEvent.end).format('HH:mm:ss'))
+    const [startTime, setStartTime] = useState(moment(selectedEvent.start).format('HH:mm:ss'));
+    const [inputEventTitle, setInputEventTitle] = useState(selectedEvent.title);
+
+    const inputEventTitleRef = useRef(null);
 
     const dispatch = useDispatch();
 
@@ -36,8 +40,9 @@ export default function EventDetailPopup(props) {
     const submitEventDetails = () => {
         const startDate = moment(selectedEvent.start);
         const endDate = moment(selectedEvent.end);
+
         const modifiedStartTimeMoment = moment(startTime, 'HH:mm');
-        const modifiedEndTimeMoment = moment(endDate, 'HH:mm');
+        const modifiedEndTimeMoment = moment(endTime, 'HH:mm');
 
 
         const mergedStartDateTime = mergedDateTime(startDate, modifiedStartTimeMoment);
@@ -46,7 +51,8 @@ export default function EventDetailPopup(props) {
         const newEvent = {
             ...selectedEvent,
             start: mergedStartDateTime,
-            end: mergedEndDateTime
+            end: mergedEndDateTime,
+            title: inputEventTitle
         }
        
         setEventsData((prevState) => [...prevState, newEvent])
@@ -57,18 +63,41 @@ export default function EventDetailPopup(props) {
         const { value, name } = e.target;
         if(name === 'endTime'){
             setEndTime(value)
-        }else{
+        } else if (name === 'startTime'){
             setStartTime(value)
+        }else if('eventTitle'){
+            setInputEventTitle(value)
         }
+
     }
 
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (inputEventTitleRef.current && !inputEventTitleRef.current.contains(event.target)) {
+                setIsTitleInputActive(false)
+            }
+        }
+        
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [inputEventTitleRef]);
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div className='event_detail__container'>
                 <header className='event_details__header'>
                     <div className='event_details__header-left'>
-                        <span>#Home</span>
+                        <span>
+                            <svg fill="#999999" width="16px" height="16px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                <title>hashtag</title>
+                                <path d="M30 20.75h-8.078l1.696-9.5h6.679c0.69 0 1.25-0.56 1.25-1.25s-0.56-1.25-1.25-1.25v0h-6.233l1.166-6.53c0.014-0.070 0.022-0.151 0.022-0.233 0-0.69-0.56-1.25-1.25-1.25-0.618 0-1.131 0.448-1.232 1.036l-0.001 0.007-1.245 6.97h-9.461l1.166-6.53c0.014-0.070 0.022-0.151 0.022-0.233 0-0.69-0.56-1.25-1.25-1.25-0.618 0-1.131 0.448-1.232 1.036l-0.001 0.007-1.245 6.97h-7.228c-0.69 0-1.25 0.56-1.25 1.25s0.56 1.25 1.25 1.25v0h6.782l-1.697 9.5h-5.382c-0.69 0-1.25 0.56-1.25 1.25s0.56 1.25 1.25 1.25v0h4.936l-1.166 6.529c-0.012 0.066-0.019 0.142-0.019 0.22 0 0.613 0.441 1.123 1.023 1.23l0.008 0.001c0.065 0.012 0.141 0.020 0.217 0.020 0.001 0 0.002 0 0.003 0h-0c0.612-0.001 1.121-0.441 1.228-1.022l0.001-0.008 1.245-6.971h9.46l-1.166 6.529c-0.012 0.066-0.020 0.143-0.020 0.221 0 0.69 0.56 1.25 1.25 1.25 0.612 0 1.122-0.44 1.229-1.022l0.001-0.008 1.245-6.971h8.525c0.69 0 1.25-0.56 1.25-1.25s-0.56-1.25-1.25-1.25v0zM9.922 20.75l1.696-9.5h9.461l-1.697 9.5z"></path>
+                            </svg>
+                        </span>
+                        &nbsp;
+                        &nbsp;
+                        <span>{selectedEvent.title} </span>
                     </div>
                     <div className='event_details__header-right'>
                         <span>
@@ -187,7 +216,18 @@ export default function EventDetailPopup(props) {
                                             <path d="M30 20.75h-8.078l1.696-9.5h6.679c0.69 0 1.25-0.56 1.25-1.25s-0.56-1.25-1.25-1.25v0h-6.233l1.166-6.53c0.014-0.070 0.022-0.151 0.022-0.233 0-0.69-0.56-1.25-1.25-1.25-0.618 0-1.131 0.448-1.232 1.036l-0.001 0.007-1.245 6.97h-9.461l1.166-6.53c0.014-0.070 0.022-0.151 0.022-0.233 0-0.69-0.56-1.25-1.25-1.25-0.618 0-1.131 0.448-1.232 1.036l-0.001 0.007-1.245 6.97h-7.228c-0.69 0-1.25 0.56-1.25 1.25s0.56 1.25 1.25 1.25v0h6.782l-1.697 9.5h-5.382c-0.69 0-1.25 0.56-1.25 1.25s0.56 1.25 1.25 1.25v0h4.936l-1.166 6.529c-0.012 0.066-0.019 0.142-0.019 0.22 0 0.613 0.441 1.123 1.023 1.23l0.008 0.001c0.065 0.012 0.141 0.020 0.217 0.020 0.001 0 0.002 0 0.003 0h-0c0.612-0.001 1.121-0.441 1.228-1.022l0.001-0.008 1.245-6.971h9.46l-1.166 6.529c-0.012 0.066-0.020 0.143-0.020 0.221 0 0.69 0.56 1.25 1.25 1.25 0.612 0 1.122-0.44 1.229-1.022l0.001-0.008 1.245-6.971h8.525c0.69 0 1.25-0.56 1.25-1.25s-0.56-1.25-1.25-1.25v0zM9.922 20.75l1.696-9.5h9.461l-1.697 9.5z"></path>
                                         </svg>
                                     </span>
-                                    <span> Call with Yaniv</span>
+                                    {
+                                        isTitleInputActive ? <input
+                                            type='text'
+                                            className='event_details__input_event_name'
+                                            name='eventTitle'
+                                            onChange={(e) => handleChange(e)}
+                                            value={inputEventTitle}
+                                            ref={inputEventTitleRef}
+                                        />
+                                            :
+                                            <span onClick={() => setIsTitleInputActive(true)}>{inputEventTitle}</span>
+                                    }
                                 </div>
                                 <hr />
                             </li>

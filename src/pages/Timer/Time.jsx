@@ -4,7 +4,7 @@ import { CircularProgressbar, CircularProgressbarWithChildren, buildStyles } fro
 import 'react-circular-progressbar/dist/styles.css';
 import RadialSeparators from './components/parts/RadialSeparators';
 
-const default_minutes = 5;
+const default_minutes = 3;
 const seconds = 60;
 const minutes = 5;
 

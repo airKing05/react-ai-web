@@ -17,25 +17,58 @@
     color: rgb(176, 103, 243);
 }
 
-.rbc-month-view{
-border-radius: 3px
+.rbc-toolbar button {
+    color: #202020 !important;
 }
-.rbc-header{
-   padding-top: 5px !important;
-   padding-bottom: 5px !important;
+
+.rbc-toolbar button.rbc-active {
+    background-color: rgb(176, 103, 243) !important;
+    color: white !important;
+    border-color: rgb(176, 103, 243) !important;
 }
-.rbc-event{
+
+/* .rbc-toolbar button:hover{
+    background-color: rgb(176, 103, 243) !important;
+    opacity: .2;
+    color: white !important;
+} */
+
+.rbc-toolbar button:hover {
+    /* color: #373a3c;
+    background-color: #e6e6e6;
+    border-color: #adadad; */
+    background-color: rgb(176, 103, 243) !important;
+    color: white !important;
+    border-color: rgb(176, 103, 243) !important;
+    opacity: .7;
+}
+
+.rbc-month-view {
+    border-radius: 3px
+}
+
+.rbc-header {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    color: #202020;
+}
+
+.rbc-event {
     background-color: rgb(176, 103, 243) !important;
 }
+
 /* .rbc-day-bg +  */
-.rbc-button-link{
-   font-weight: bold;
+.rbc-button-link {
+    font-weight: bold;
 }
+
 .rbc-date-cell {
     /* color: rgb(15, 114, 226); */
     color: rgb(176, 103, 243);
 }
+
 .rbc-today {
-   
-    background-color: rgb(196, 226, 250) !important;
+    opacity: .2;
+    background-color: rgb(176, 103, 243) !important;
+    /* background-color: rgb(196, 226, 250) !important; */
 }

@@ -16,7 +16,8 @@
 .header__logo h3 {
   font-weight: 700;
   cursor: pointer;
-  color: rgba(239, 100, 81);
+  /* color: rgba(239, 100, 81); */
+  color: rgb(176, 103, 243);
   /* color: rgba(229, 213, 168, 0.728); */
   /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
   background-color: transparent;
@@ -44,7 +45,7 @@
 .nav-link {
   /* Your default link styles here */
   text-decoration: none;
-  color: black;
+  color: #202020;
 }
 
 .active {

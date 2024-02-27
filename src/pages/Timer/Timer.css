@@ -35,7 +35,8 @@
     padding: .8rem 4rem;
     border: none;
     border-radius: 5px;
-    background-color: rgba(239, 100, 81);
+    /* background-color: rgba(239, 100, 81); */
+    background-color: rgb(176, 103, 243);
     color: #ffffff;
    
 }
