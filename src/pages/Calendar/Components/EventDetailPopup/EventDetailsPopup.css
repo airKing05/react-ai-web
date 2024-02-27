@@ -128,13 +128,25 @@ h6 {
 .comment_default__profile_icon {
     width: 2.5rem;
     height: 2.5rem;
+    border-radius: 50%;
+    background-color: rgb(176, 103, 243);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 
-.comment_default__profile_icon img {
+.comment_default__profile_icon span {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+/* .comment_default__profile_icon img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-}
+} */
 
 .comment_default__comment_input_placeholder {
     width: calc(100% - 2rem);
@@ -222,4 +234,26 @@ input[type='time']::-webkit-calendar-picker-indicator {
 input[type='time']::-webkit-calendar-picker-dropdown {
     background-color: green !important;
     /* Change to your desired background color */
+}
+
+
+/* date picker */
+.date__icon {
+    z-index: 2;
+}
+.react-datepicker__view-calendar-icon input {
+    position: relative;
+    left: -24px;
+    top: -2px;
+    /* border: 1px solid #999999; */
+    background-color: transparent;
+    border: none;
+    border-radius: 5px;
+}
+
+
+/* react-select */
+
+.css-art2ul-ValueContainer2{
+    padding: 2px 0px !important;
 }

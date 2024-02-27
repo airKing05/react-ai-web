@@ -3,6 +3,27 @@ import "./EventDetailsPopup.css";
 import { useDispatch } from 'react-redux';
 import { openEventPopupActionCreator } from '../../../../redux/actions/calendarActions';
 import moment from 'moment';
+import ReactDatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import ReactSelect, { components } from 'react-select';
+
+const CustomOption = (props) => {
+    return (
+        <components.Option {...props}>
+            <div>
+               <span>
+                    <svg width="16px" height="16px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <g fill={props.data.color}>
+                            <path fill="none" d="M0 0h24v24H0z" />
+                            <path d="M3 3h9.382a1 1 0 0 1 .894.553L14 5h6a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-6.382a1 1 0 0 1-.894-.553L12 16H5v6H3V3z" />
+                        </g>
+                    </svg>
+               </span>
+                <span style={{ marginLeft: '5px' }}>{props.data.label}</span> 
+            </div>
+        </components.Option>
+    );
+};
 
 const mergedDateTime = (date, modifiedTime) => {
     const newDate = date.clone().set({
@@ -14,15 +35,59 @@ const mergedDateTime = (date, modifiedTime) => {
     return finalFormattedDate;
 }
 
+const priorities = [
+    {
+        label: 'Priority 1',
+        color: '#D2453B',
+        value: 'p-1'
+    },
+    {
+        label: 'Priority 2',
+        color: '#EB893A',
+        value: 'p-2'
+    },
+    {
+        label: 'Priority 3',
+        color: '#2470E0',
+        value: 'p-3'
+    },
+    {
+        label: 'Priority 4',
+        color: 'green',
+        value: 'p-4'
+    },
+]
+
+const priorities1 = [
+    {
+        label: `<span>P1</span>`,
+        colorCode: '#D2453B',
+    },
+    {
+        label: `<span>P1</span>`,
+        colorCode: '#EB893A',
+    },
+    {
+        label: `<span>P1</span>`,
+        colorCode: '#2470E0',
+    },
+    {
+        label: `<span>P2</span>`,
+        colorCode: '#ffffff',
+    },
+]
+
 export default function EventDetailPopup(props) {
     const { setShowEventDetails, setEventsData, setSelectedEvent, selectedEvent } = props;
     const [showPrimaryEventContentBorder, setPrimaryEventContentBorder] = useState(false);
     const [primaryEventContentInputValue, setPrimaryEventContentInputValue] = useState('');
     const [showCommentBox, setShowCommentBox] = useState(false);
     const [isTitleInputActive, setIsTitleInputActive] = useState(false);
+    const [startDate, setStartDate] = useState(selectedEvent.start);
     const [endTime, setEndTime] = useState(moment(selectedEvent.end).format('HH:mm:ss'));
     const [startTime, setStartTime] = useState(moment(selectedEvent.start).format('HH:mm:ss'));
     const [inputEventTitle, setInputEventTitle] = useState(selectedEvent.title);
+
 
     const inputEventTitleRef = useRef(null);
 
@@ -187,7 +252,8 @@ export default function EventDetailPopup(props) {
                                     :
                                     <div className='event_details__comment_default'>
                                         <div className='comment_default__profile_icon'>
-                                            <img src="https://dcff1xvirvpfp.cloudfront.net/a11ab89c4f874238b565c59b69db36b3_small.jpg" />
+                                          <span>A</span>
+                                            {/* <img src="https://dcff1xvirvpfp.cloudfront.net/a11ab89c4f874238b565c59b69db36b3_small.jpg" /> */}
                                         </div>
                                         <div className='comment_default__comment_input_placeholder'
                                             onClick={() => setShowCommentBox(true)}
@@ -231,7 +297,7 @@ export default function EventDetailPopup(props) {
                                 </div>
                                 <hr />
                             </li>
-                            <li>
+                            {/* <li>
                                 <h6>Date</h6>
                                 <div>
                                     <span>
@@ -240,7 +306,26 @@ export default function EventDetailPopup(props) {
                                         </svg>
                                     </span>
                                     <span>
-                                        25 Feb
+                                        {moment(selectedEvent.start).format("DD MMM")}
+                                    </span>
+                                </div>
+                                <hr />
+                            </li> */}
+                            <li>
+                                <h6>Date</h6>
+                                <div>
+                                    <span className='date__icon'>
+                                        <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7 1.75C7.41421 1.75 7.75 2.08579 7.75 2.5V3.26272C8.41203 3.24999 9.1414 3.24999 9.94358 3.25H14.0564C14.8586 3.24999 15.588 3.24999 16.25 3.26272V2.5C16.25 2.08579 16.5858 1.75 17 1.75C17.4142 1.75 17.75 2.08579 17.75 2.5V3.32709C18.0099 3.34691 18.2561 3.37182 18.489 3.40313C19.6614 3.56076 20.6104 3.89288 21.3588 4.64124C22.1071 5.38961 22.4392 6.33855 22.5969 7.51098C22.6472 7.88567 22.681 8.29459 22.7037 8.74007C22.7337 8.82106 22.75 8.90861 22.75 9C22.75 9.06932 22.7406 9.13644 22.723 9.20016C22.75 10.0021 22.75 10.9128 22.75 11.9436V14.0564C22.75 15.8942 22.75 17.3498 22.5969 18.489C22.4392 19.6614 22.1071 20.6104 21.3588 21.3588C20.6104 22.1071 19.6614 22.4392 18.489 22.5969C17.3498 22.75 15.8942 22.75 14.0564 22.75H9.94359C8.10583 22.75 6.65019 22.75 5.51098 22.5969C4.33856 22.4392 3.38961 22.1071 2.64124 21.3588C1.89288 20.6104 1.56076 19.6614 1.40314 18.489C1.24997 17.3498 1.24998 15.8942 1.25 14.0564V11.9436C1.24999 10.9127 1.24998 10.0021 1.27701 9.20017C1.25941 9.13645 1.25 9.06932 1.25 9C1.25 8.90862 1.26634 8.82105 1.29627 8.74006C1.31895 8.29458 1.35276 7.88566 1.40314 7.51098C1.56076 6.33856 1.89288 5.38961 2.64124 4.64124C3.38961 3.89288 4.33856 3.56076 5.51098 3.40313C5.7439 3.37182 5.99006 3.34691 6.25 3.32709V2.5C6.25 2.08579 6.58579 1.75 7 1.75ZM2.76309 9.75C2.75032 10.4027 2.75 11.146 2.75 12V14C2.75 15.9068 2.75159 17.2615 2.88976 18.2892C3.02502 19.2952 3.27869 19.8749 3.7019 20.2981C4.12511 20.7213 4.70476 20.975 5.71085 21.1102C6.73851 21.2484 8.09318 21.25 10 21.25H14C15.9068 21.25 17.2615 21.2484 18.2892 21.1102C19.2952 20.975 19.8749 20.7213 20.2981 20.2981C20.7213 19.8749 20.975 19.2952 21.1102 18.2892C21.2484 17.2615 21.25 15.9068 21.25 14V12C21.25 11.146 21.2497 10.4027 21.2369 9.75H2.76309ZM21.1683 8.25H2.83168C2.8477 8.06061 2.86685 7.88123 2.88976 7.71085C3.02502 6.70476 3.27869 6.12511 3.7019 5.7019C4.12511 5.27869 4.70476 5.02502 5.71085 4.88976C6.73851 4.75159 8.09318 4.75 10 4.75H14C15.9068 4.75 17.2615 4.75159 18.2892 4.88976C19.2952 5.02502 19.8749 5.27869 20.2981 5.7019C20.7213 6.12511 20.975 6.70476 21.1102 7.71085C21.1331 7.88123 21.1523 8.06061 21.1683 8.25ZM16.5 15.75C16.0858 15.75 15.75 16.0858 15.75 16.5C15.75 16.9142 16.0858 17.25 16.5 17.25C16.9142 17.25 17.25 16.9142 17.25 16.5C17.25 16.0858 16.9142 15.75 16.5 15.75ZM14.25 16.5C14.25 15.2574 15.2574 14.25 16.5 14.25C17.7426 14.25 18.75 15.2574 18.75 16.5C18.75 17.7426 17.7426 18.75 16.5 18.75C15.2574 18.75 14.25 17.7426 14.25 16.5Z" fill="#1C274C" />
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <ReactDatePicker
+                                            showIcon
+                                            selected={startDate}
+                                            onChange={(date) => setStartDate(date)}
+                                            icon="fa fa-calendar"
+                                        />
                                     </span>
                                 </div>
                                 <hr />
@@ -277,7 +362,42 @@ export default function EventDetailPopup(props) {
                             </li>
                             <li>
                                 <h6>Priority</h6>
-                                <div>
+                                <ReactSelect
+                                    className="basic-single"
+                                    classNamePrefix="select"
+                                    defaultValue={priorities[0]}
+                                    // isDisabled={isDisabled}
+                                    // isLoading={isLoading}
+                                    // isClearable={isClearable}
+                                    // isSearchable={isSearchable}
+                                    name="priority"
+                                    options={priorities}
+                                    theme={(theme) => ({
+                                        ...theme,
+                                        // colors: {
+                                        //     ...theme.colors,
+                                        //     text: 'orangered',
+                                        //     primary25: 'hotpink',
+                                        //     primary: 'white',
+                                        // },
+                                    })}
+                                    styles={{
+                                        option: (provided, state) => ({
+                                            ...provided,
+                                            backgroundColor: state.isSelected ? '#EEDDFC' : 'white' ,
+                                            // backgroundColor: state.isSelected ? state.data.color : 'white',
+                                            color: state.isSelected ? '#202020' : state.data.color,
+                                        }),
+                                        control: (provided) => ({
+                                            ...provided,
+                                            border: 'none', // Remove the border
+                                            background: 'transparent',
+                                            width: '100%'
+                                        }),
+                                    }}
+                                    components={{ Option: CustomOption }}
+                                />
+                                {/* <div>
                                     <span>
                                         <svg width="16px" height="16px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <g fill="#B067F3">
@@ -289,7 +409,7 @@ export default function EventDetailPopup(props) {
                                     <span>
                                         25 Feb
                                     </span>
-                                </div>
+                                </div> */}
                                 <hr />
                             </li>
                             <li>
