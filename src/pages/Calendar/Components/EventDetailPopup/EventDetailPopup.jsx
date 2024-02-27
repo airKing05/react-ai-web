@@ -2,12 +2,25 @@ import React, { useState } from 'react';
 import "./EventDetailsPopup.css";
 import { useDispatch } from 'react-redux';
 import { openEventPopupActionCreator } from '../../../../redux/actions/calendarActions';
+import moment from 'moment';
+
+const mergedDateTime = (date, modifiedTime) => {
+    const newDate = date.clone().set({
+        hour: modifiedTime.hours(),
+        minute: modifiedTime.minutes(),
+        second: modifiedTime.seconds()
+    });
+    const finalFormattedDate = newDate.format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ [(India Standard Time)]');
+    return finalFormattedDate;
+}
 
 export default function EventDetailPopup(props) {
-    const { setShowEventDetails } = props;
+    const { setShowEventDetails, setEventsData, setSelectedEvent, selectedEvent } = props;
     const [showPrimaryEventContentBorder, setPrimaryEventContentBorder] = useState(false);
     const [primaryEventContentInputValue, setPrimaryEventContentInputValue] = useState('');
     const [showCommentBox, setShowCommentBox] = useState(false);
+    const [endTime, setEndTime] = useState(moment(selectedEvent.end).format('HH:mm:ss'));
+    const [startTime, setStartTime] = useState(moment(selectedEvent.end).format('HH:mm:ss'))
 
     const dispatch = useDispatch();
 
@@ -18,6 +31,38 @@ export default function EventDetailPopup(props) {
 
         setPrimaryEventContentInputValue(e.target.value)
     }
+
+
+    const submitEventDetails = () => {
+        const startDate = moment(selectedEvent.start);
+        const endDate = moment(selectedEvent.end);
+        const modifiedStartTimeMoment = moment(startTime, 'HH:mm');
+        const modifiedEndTimeMoment = moment(endDate, 'HH:mm');
+
+
+        const mergedStartDateTime = mergedDateTime(startDate, modifiedStartTimeMoment);
+        const mergedEndDateTime = mergedDateTime(endDate, modifiedEndTimeMoment)
+
+        const newEvent = {
+            ...selectedEvent,
+            start: mergedStartDateTime,
+            end: mergedEndDateTime
+        }
+       
+        setEventsData((prevState) => [...prevState, newEvent])
+        dispatch(openEventPopupActionCreator(false))
+    }
+
+    const handleChange = (e) => {
+        const { value, name } = e.target;
+        if(name === 'endTime'){
+            setEndTime(value)
+        }else{
+            setStartTime(value)
+        }
+    }
+
+
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div className='event_detail__container'>
@@ -33,11 +78,13 @@ export default function EventDetailPopup(props) {
                                 <path d="M21 12C21 13.1046 20.1046 14 19 14C17.8954 14 17 13.1046 17 12C17 10.8954 17.8954 10 19 10C20.1046 10 21 10.8954 21 12Z" fill="#1C274C" />
                             </svg>
                         </span>
-                        <span onClick={() => {
-                        // setShowEventDetails(false)
-                            dispatch(openEventPopupActionCreator(false))
-                        }
-                        }>
+                        <span
+                            className='btn'
+                            onClick={() => {
+                                // setShowEventDetails(false)
+                                dispatch(openEventPopupActionCreator(false))
+                            }
+                            }>
                             <svg width="30px" height="30px" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M6.96967 16.4697C6.67678 16.7626 6.67678 17.2374 6.96967 17.5303C7.26256 17.8232 7.73744 17.8232 8.03033 17.5303L6.96967 16.4697ZM13.0303 12.5303C13.3232 12.2374 13.3232 11.7626 13.0303 11.4697C12.7374 11.1768 12.2626 11.1768 11.9697 11.4697L13.0303 12.5303ZM11.9697 11.4697C11.6768 11.7626 11.6768 12.2374 11.9697 12.5303C12.2626 12.8232 12.7374 12.8232 13.0303 12.5303L11.9697 11.4697ZM18.0303 7.53033C18.3232 7.23744 18.3232 6.76256 18.0303 6.46967C17.7374 6.17678 17.2626 6.17678 16.9697 6.46967L18.0303 7.53033ZM13.0303 11.4697C12.7374 11.1768 12.2626 11.1768 11.9697 11.4697C11.6768 11.7626 11.6768 12.2374 11.9697 12.5303L13.0303 11.4697ZM16.9697 17.5303C17.2626 17.8232 17.7374 17.8232 18.0303 17.5303C18.3232 17.2374 18.3232 16.7626 18.0303 16.4697L16.9697 17.5303ZM11.9697 12.5303C12.2626 12.8232 12.7374 12.8232 13.0303 12.5303C13.3232 12.2374 13.3232 11.7626 13.0303 11.4697L11.9697 12.5303ZM8.03033 6.46967C7.73744 6.17678 7.26256 6.17678 6.96967 6.46967C6.67678 6.76256 6.67678 7.23744 6.96967 7.53033L8.03033 6.46967ZM8.03033 17.5303L13.0303 12.5303L11.9697 11.4697L6.96967 16.4697L8.03033 17.5303ZM13.0303 12.5303L18.0303 7.53033L16.9697 6.46967L11.9697 11.4697L13.0303 12.5303ZM11.9697 12.5303L16.9697 17.5303L18.0303 16.4697L13.0303 11.4697L11.9697 12.5303ZM13.0303 11.4697L8.03033 6.46967L6.96967 7.53033L11.9697 12.5303L13.0303 11.4697Z" fill="#000000" />
                             </svg>
@@ -46,6 +93,7 @@ export default function EventDetailPopup(props) {
                 </header>
                 <main className='event_details__content'>
                     <section className='event_details__content-main'>
+                        <div style={{height: 'calc(100% - 60px)'}}>
                         <div>
                             <div className='event_details__primary_event'>
                                 <div className='content_main__checkMarkContainer'></div>
@@ -122,6 +170,10 @@ export default function EventDetailPopup(props) {
 
 
                         </div>
+                        </div>
+                        <footer>
+                            <button className='btn_save submit__event' onClick={submitEventDetails}>Submit</button>
+                        </footer>
                     </section>
                     <aside className='event_details__content-sidebar'>
 
@@ -154,11 +206,41 @@ export default function EventDetailPopup(props) {
                                 <hr />
                             </li>
                             <li>
+                                <h6>Start</h6>
+                                <div className='time-picker-container'>
+                                    <span>
+                                        <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="12" cy="12" r="10" stroke="#1C274C" strokeWidth="1.5" />
+                                            <path d="M12 8V12L14.5 14.5" stroke="#1C274C" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <input type='time' value={startTime} name='startTime' onChange={(e) => handleChange(e)} />
+                                    </span>
+                                </div>
+                                <hr />
+                            </li>
+                            <li>
+                                <h6>End</h6>
+                                <div className='time-picker-container'>
+                                    <span>
+                                        <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="12" cy="12" r="10" stroke="#1C274C" strokeWidth="1.5" />
+                                            <path d="M12 8V12L14.5 14.5" stroke="#1C274C" strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+                                    <span>
+                                        <input type='time' name='endTime' value={endTime} onChange={(e) => handleChange(e)} />
+                                    </span>
+                                </div>
+                                <hr />
+                            </li>
+                            <li>
                                 <h6>Priority</h6>
                                 <div>
                                     <span>
                                         <svg width="16px" height="16px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <g fill="#246fe0">
+                                            <g fill="#B067F3">
                                                 <path fill="none" d="M0 0h24v24H0z" />
                                                 <path d="M3 3h9.382a1 1 0 0 1 .894.553L14 5h6a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-6.382a1 1 0 0 1-.894-.553L12 16H5v6H3V3z" />
                                             </g>
@@ -172,7 +254,7 @@ export default function EventDetailPopup(props) {
                             </li>
                             <li>
                                 <div>
-                                    <span style={{marginTop: '4px'}}>
+                                    <span style={{ marginTop: '4px' }}>
                                         <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M6 12H18M12 6V18" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>

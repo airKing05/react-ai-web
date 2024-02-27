@@ -15,54 +15,54 @@ const navigationPath = [
     pathName: 'Timer',
     path: '/layout/timer',
   },
-  {
-    pathName: 'Page-4',
-    path: '/layout/page-4',
-  },
-  {
-    pathName: 'Page-5',
-    path: '/layout/page-5',
-  },
-  {
-    pathName: 'Page-6',
-    path: '/layout/page-6',
-  },
-  {
-    pathName: 'Page-7',
-    path: '/layout/page-7',
-  },
-  {
-    pathName: 'Page-8',
-    path: '/layout/page-8',
-  },
-    {
-    pathName: 'Page-9',
-    path: '/layout/page-9',
-  },
-  {
-    pathName: 'Page-10',
-    path: '/layout/page-10',
-  },
-  {
-    pathName: 'Page-11',
-    path: '/layout/page-11',
-  },
-  {
-    pathName: 'Page-12',
-    path: '/layout/page-12',
-  },
-  {
-    pathName: 'Page-13',
-    path: '/layout/page-13',
-  },
-  {
-    pathName: 'Page-14',
-    path: '/layout/page-14',
-  },
-  {
-    pathName: 'Page-15',
-    path: '/layout/page-15',
-  }
+  // {
+  //   pathName: 'Page-4',
+  //   path: '/layout/page-4',
+  // },
+  // {
+  //   pathName: 'Page-5',
+  //   path: '/layout/page-5',
+  // },
+  // {
+  //   pathName: 'Page-6',
+  //   path: '/layout/page-6',
+  // },
+  // {
+  //   pathName: 'Page-7',
+  //   path: '/layout/page-7',
+  // },
+  // {
+  //   pathName: 'Page-8',
+  //   path: '/layout/page-8',
+  // },
+  //   {
+  //   pathName: 'Page-9',
+  //   path: '/layout/page-9',
+  // },
+  // {
+  //   pathName: 'Page-10',
+  //   path: '/layout/page-10',
+  // },
+  // {
+  //   pathName: 'Page-11',
+  //   path: '/layout/page-11',
+  // },
+  // {
+  //   pathName: 'Page-12',
+  //   path: '/layout/page-12',
+  // },
+  // {
+  //   pathName: 'Page-13',
+  //   path: '/layout/page-13',
+  // },
+  // {
+  //   pathName: 'Page-14',
+  //   path: '/layout/page-14',
+  // },
+  // {
+  //   pathName: 'Page-15',
+  //   path: '/layout/page-15',
+  // }
 ]
 
 export default function Header() {

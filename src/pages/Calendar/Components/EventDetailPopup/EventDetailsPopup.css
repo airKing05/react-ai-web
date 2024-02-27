@@ -1,11 +1,12 @@
-.event_detail__container{
+.event_detail__container {
     height: calc(100vh - 140px);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     width: 70%;
     border-radius: 10px;
     background-color: #ffffff;
 }
-.event_details__header{
+
+.event_details__header {
     height: 60px;
     box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
     display: flex;
@@ -13,121 +14,140 @@
     align-items: center;
     padding: 0rem 2rem;
 }
-.event_details__header-right{
-  display: flex;
-  gap: 20px;
+
+.event_details__header-right {
+    display: flex;
+    gap: 20px;
 }
 
-.event_details__content{
+.event_details__content {
     display: flex;
     height: calc(100% - 60px);
 }
 
-.event_details__content-main{
+.event_details__content-main {
     width: 70%;
     padding: 1rem 2rem;
 }
+
 .event_details__content-sidebar {
     width: 30%;
     padding: 1rem 2rem;
     background-color: rgb(253, 250, 248);
     border-bottom-right-radius: 10px;
 }
-h6{
-  color: #666666;
+
+h6 {
+    color: #666666;
 }
 
-.event_details__primary_event{
+.event_details__primary_event {
     display: flex;
     gap: 5px;
 }
-.content_main__checkMarkContainer{
+
+.content_main__checkMarkContainer {
     width: 15px;
     height: 15px;
-    border: 2px solid blueviolet;
+    border: 2px solid rgb(176, 103, 243);
     border-radius: 50%;
     margin-top: .4rem;
 }
-.event_details__primary_event_content{
+
+.event_details__primary_event_content {
     width: 100%;
     padding-inline: .5rem;
 }
-.event_details__primary_event_content h3{
+
+.event_details__primary_event_content h3 {
     color: #202020;
 }
-.content_border{
+
+.content_border {
     border: 1px solid #999999;
     border-radius: 10px;
 }
 
-.event_details__primary_event_details{
+.event_details__primary_event_details {
     margin-top: .2rem;
     display: flex;
     margin-bottom: .2rem;
 }
-.event_details__primary_event_input_area{
+
+.event_details__primary_event_input_area {
     width: 100%;
 }
-.event_details__primary_event_input_area textarea{
-   width: 100%;
-   line-height: 1.2rem;
+
+.event_details__primary_event_input_area textarea {
+    width: 100%;
+    line-height: 1.2rem;
     padding-top: 2px;
     border: none;
     padding-left: 2px;
 }
 
-.primary_event_content__btn_container{
+.primary_event_content__btn_container {
     display: flex;
     justify-content: end;
     gap: 20px;
     margin-top: 5px;
 }
 
-.primary_event_content__btn_container button{
+.primary_event_content__btn_container button {
     padding: .5rem 1.3rem;
     border: none;
     border-radius: 5px;
     margin-bottom: 1rem;
 }
 
-.btn_save{
+.btn_save {
     background-color: #dc4c3e;
     color: #ffffff;
 }
-.btn_cancel{
+
+.btn_cancel {
     background-color: #f5f5f5;
     color: #444444;
 }
 
 
 /* comment section */
-.event_details__comment_section{
+.event_details__comment_section {
     margin-top: 2rem;
     margin-left: 1.5rem;
 }
-.event_details__comment_default{
+
+.event_details__comment_default {
     display: flex;
     gap: 10px;
     margin-bottom: 1rem;
     align-items: center;
 }
-.comment_default__profile_icon{
+
+.comment_default__profile_icon {
     width: 2.5rem;
     height: 2.5rem;
 }
-.comment_default__profile_icon img{
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
+
+.comment_default__profile_icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
 }
-.comment_default__comment_input_placeholder{
+
+.comment_default__comment_input_placeholder {
     width: calc(100% - 2rem);
     border: 1px solid #f5f5f5;
     padding: .5rem;
     border-radius: 20px;
     color: #666666;
 }
-
+.submit__event {
+    padding: .5rem 3rem;
+    border: none;
+    border-radius: 5px;
+    margin: 1rem auto;
+}
 
 /* sidebar */
 .event_details__content-sidebar li h6 {
@@ -135,13 +155,14 @@ h6{
     margin-bottom: .4rem;
 }
 
-.event_details__content-sidebar li{
+.event_details__content-sidebar li {
     color: #202020;
     font-size: 14px;
     font-weight: 400;
     margin-bottom: .5rem;
 }
-.event_details__content-sidebar li > div {
+
+.event_details__content-sidebar li>div {
     display: flex;
     gap: 5px;
     align-items: center;
@@ -152,3 +173,35 @@ h6{
     border: 1px solid #eeeeee;
 }
 
+
+
+/* time picker  */
+.time-picker-container {
+    position: relative;
+    gap: 0px;
+}
+.time-picker-container input{
+ border: none;
+}
+
+.time-picker-container svg {
+    position: absolute;
+    /* left: 10px; */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.time-picker-container input[type='time'] {
+    padding-left: 15px;
+    color: #202020;
+}
+
+input[type='time']::-webkit-calendar-picker-indicator {
+    display: block;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: transparent;
+}
