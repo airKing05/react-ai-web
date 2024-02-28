@@ -9,7 +9,7 @@ import Timer from "../Timer/Time";
 export default function Home() {
   return (
     <div>
-       <Header/>
+       {/* <Header/> */}
        <Routes>
         <Route path='/chat' element={<Chat />} exact />
         <Route path='/calendar' element={<CustomCalendar />} exact />

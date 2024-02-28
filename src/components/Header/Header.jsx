@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Header.css';
 import { Link, NavLink } from 'react-router-dom';
 
@@ -66,6 +66,22 @@ const navigationPath = [
 ]
 
 export default function Header() {
+  const [userData, setUserData] = useState(() => {
+    const userFromSessionStorage = JSON.parse(sessionStorage.getItem('user'));
+    return userFromSessionStorage || null;
+  });
+  const handleSignOut = () => {
+    sessionStorage.removeItem('user');
+    setUserData(null)
+  }
+
+  console.log("userData", userData)
+
+  useEffect(() => {
+    const userFromSessionStorage = JSON.parse(sessionStorage.getItem('user'));
+    setUserData(userFromSessionStorage);
+  }, []);
+  
   return (
     <nav className='header__container'>
       <div className='header__logo'>
@@ -87,6 +103,25 @@ export default function Header() {
             </React.Fragment>
           ))
         }
+      </div>
+      <div className='header__auth_section'>
+        <NavLink
+          // to='/sign-in'
+          to={userData?.email ? '/' : '/sign-in'} 
+          className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link`}
+          exact="true"
+        >
+          {
+            userData?.email ? <span className='nav_text' onClick={handleSignOut}>Sign Out</span> : <span className='nav_text'>Sign In</span>
+          }
+        </NavLink>
+        <NavLink
+          to='/sign-up'
+          className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link`}
+          exact="true"
+        >
+          <span className='nav_text'>Sign Up</span>
+        </NavLink>
       </div>
     </nav>
   );
