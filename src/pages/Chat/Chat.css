@@ -12,3 +12,31 @@
 .chat_content h2{
   color: #202020;
 }
+
+.chat__voice_part{
+  max-width: 800px;
+  padding: 2rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 10px;
+}
+
+.voice_btn{
+  display: flex;
+  gap: 20px;
+  margin-bottom: 1rem;
+ 
+}
+.voice_btn button{
+  padding: 5px;
+  border-radius: 5px;
+  background-color: rgb(176, 103, 243);
+  color: #ffffff;
+  font-weight: 500;
+  padding: .4rem;
+  border: none;
+}
+
+.chat__voice_part p{
+  color: #202020;
+  
+}
