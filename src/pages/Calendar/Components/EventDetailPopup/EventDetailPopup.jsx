@@ -25,6 +25,20 @@ const CustomOption = (props) => {
     );
 };
 
+const CustomValue = ({ data }) => (
+    <div style={{position: 'absolute', top: '5px', left: '0px'}}>
+        <span>
+            <svg width="16px" height="16px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <g fill={data.color}>
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path d="M3 3h9.382a1 1 0 0 1 .894.553L14 5h6a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-6.382a1 1 0 0 1-.894-.553L12 16H5v6H3V3z" />
+                </g>
+            </svg>
+        </span>
+        <span style={{ marginLeft: '5px' }}>{data.label}</span> 
+    </div>
+);
+
 const mergedDateTime = (date, modifiedTime) => {
     const newDate = date.clone().set({
         hour: modifiedTime.hours(),
@@ -392,10 +406,11 @@ export default function EventDetailPopup(props) {
                                             ...provided,
                                             border: 'none', // Remove the border
                                             background: 'transparent',
-                                            width: '100%'
+                                            width: '100%',
+                                            marginTop: '-10px'
                                         }),
                                     }}
-                                    components={{ Option: CustomOption }}
+                                    components={{ Option: CustomOption, SingleValue: CustomValue }}
                                 />
                                 {/* <div>
                                     <span>
