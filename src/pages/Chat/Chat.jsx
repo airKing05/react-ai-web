@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Footer from './components/Footer/Footer';
 import "./Chat.css";
 import ChatPopup from './components/ChatPopup/ChatPopup';
@@ -6,6 +6,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 
 export default function Chat() {
     const [showChatPopup, setShowChatPop] = useState(false);
+        const [transcriptState, setTranscriptState] = useState('');
 
     const startListeningFn = () => {
         return SpeechRecognition.startListening({ continuous: true, language: 'en-IN' });
@@ -25,6 +26,18 @@ export default function Chat() {
         return <span>Browser doesn't support speech recognition.</span>;
     }
 
+    useEffect(()=> {
+        if (!listening) {
+            const timer = setTimeout(() => {
+                setTranscriptState(transcript)
+            }, 500);
+            return () => clearTimeout(timer);
+        }
+       
+    }, [listening, transcript])
+
+    console.log(transcriptState);
+
     return (
         <div className='chat__container'>
             <div className='chat_content'>
@@ -41,12 +54,18 @@ export default function Chat() {
                           &nbsp; {listening ? 'on' : 'off'}
                         </span>
                     </div>
-                    <p>{transcript}</p>
+                    {/* <p>{transcript}</p> */}
+                    <div>{transcriptState}</div>
                 </div>
             {
                 showChatPopup ? <ChatPopup 
+                        listening={listening}
+                        transcript={transcript}
                         showChatPopup={showChatPopup}
                         setShowChatPop={setShowChatPop}
+                        startListening={startListeningFn}
+                        stopListening={stopListeningFn}
+                        resetTranscript={resetTranscript}
                 /> : null
             }
             </div>

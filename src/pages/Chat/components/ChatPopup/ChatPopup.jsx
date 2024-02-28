@@ -20,9 +20,9 @@ const chatsData = [
     }
 ]
 export default function ChatPopup(props) {
-    const { showChatPopup, setShowChatPop } = props;
+    const { showChatPopup, setShowChatPop, listening, transcript, stopListening, startListening, resetTranscript } = props;
     const [chats, setChats] = useState(chatsData);
-    const [inputMsg,setInputMsg] = useState('');
+    const [inputMsg, setInputMsg] = useState(transcript ? transcript : '');
     const [isMsgSendSuccessfully, setMsgSendSuccessFully] = useState(false)
 
     const msgEndRef = useRef(null);
@@ -43,6 +43,10 @@ export default function ChatPopup(props) {
         setChats((prevChats) => [...prevChats, newChat])
         setInputMsg('');
         setMsgSendSuccessFully(true)
+        stopListening();
+        setTimeout(() => {
+            resetTranscript()
+        }, 0);
     }
 
     const scrollToBottom = () => {
@@ -68,6 +72,10 @@ export default function ChatPopup(props) {
     useEffect(() => {
         scrollToBottom();
     }, [chats]);
+
+    useEffect(()=>{
+        setInputMsg(transcript)
+    }, [transcript])
 
 
     return (
@@ -106,6 +114,28 @@ export default function ChatPopup(props) {
                     value={inputMsg}
                     onChange={handelMsgInputChange}
                 />
+                {
+                    !listening ? <div onClick={startListening}>
+                        <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <title>ic_fluent_mic_on_48_filled</title>
+                            <desc>Created with Sketch.</desc>
+                            <g id="🔍-Product-Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="ic_fluent_mic_on_48_filled" fill="#B067F3" fill-rule="nonzero">
+                                    <path d="M34.5,23.75 C35.1903559,23.75 35.75,24.3096441 35.75,25 C35.75,30.7904522 31.3753005,35.5591386 25.7506989,36.1812617 L25.75,38.75 C25.75,39.4403559 25.1903559,40 24.5,40 C23.8527913,40 23.3204661,39.5081253 23.2564536,38.8778052 L23.25,38.75 L23.2503043,36.1813727 C17.6252197,35.5597057 13.25,30.7907965 13.25,25 C13.25,24.3096441 13.8096441,23.75 14.5,23.75 C15.1903559,23.75 15.75,24.3096441 15.75,25 C15.75,29.8324916 19.6675084,33.75 24.5,33.75 C29.3324916,33.75 33.25,29.8324916 33.25,25 C33.25,24.3096441 33.8096441,23.75 34.5,23.75 Z M24.5,8 C27.5375661,8 30,10.4624339 30,13.5 L30,24.5 C30,27.5375661 27.5375661,30 24.5,30 C21.4624339,30 19,27.5375661 19,24.5 L19,13.5 C19,10.4624339 21.4624339,8 24.5,8 Z" id="🎨-Color">
+
+                                    </path>
+                                </g>
+                            </g>
+                        </svg>
+                    </div> : <div onClick={stopListening}>
+                        <svg width="30px" height="30px" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.5 10.5609V14.5C9.5 16.9853 11.5147 19 14 19C15.0998 19 16.1075 18.6055 16.8892 17.9502L18.3071 19.3682C17.1603 20.3835 15.6521 20.9999 14 20.9999C10.4101 20.9999 7.5 18.0893 7.5 14.4995V13.7505C7.5 13.3363 7.16421 13.0005 6.75 13.0005C6.33579 13.0005 6 13.3367 6 13.7509V14.4999C6 18.6653 9.18341 22.0871 13.25 22.4652V25.2499C13.25 25.6641 13.5858 25.9999 14 25.9999C14.4142 25.9999 14.75 25.6641 14.75 25.2499V22.4652C16.5205 22.3006 18.1235 21.5591 19.3694 20.4304L24.7194 25.7806C25.0123 26.0735 25.4872 26.0735 25.7801 25.7806C26.073 25.4877 26.073 25.0128 25.7801 24.7199L20.3832 19.323C21.398 17.982 22 16.3112 22 14.4999V13.7505C22 13.3363 21.6642 13.0005 21.25 13.0005C20.8358 13.0005 20.5 13.3365 20.5 13.7507V14.4999C20.5 15.8965 20.0596 17.1902 19.31 18.2497L3.28033 2.21979C2.98744 1.92689 2.51257 1.92689 2.21967 2.21978C1.92678 2.51267 1.92677 2.98754 2.21967 3.28044L9.5 10.5609Z" fill="#B067F3" />
+                            <path d="M18.4369 15.2552L9.50347 6.32166C9.59711 3.91905 11.5744 2 14 2C16.4853 2 18.5 4.01472 18.5 6.5V14.5C18.5 14.7574 18.4784 15.0097 18.4369 15.2552Z" fill="#B067F3" />
+                        </svg>
+                    </div>
+                }
+                
+               
                 <div onClick={handelSendMsg} className='btn'>
                     {/* <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M11.5003 12H5.41872M5.24634 12.7972L4.24158 15.7986C3.69128 17.4424 3.41613 18.2643 3.61359 18.7704C3.78506 19.21 4.15335 19.5432 4.6078 19.6701C5.13111 19.8161 5.92151 19.4604 7.50231 18.7491L17.6367 14.1886C19.1797 13.4942 19.9512 13.1471 20.1896 12.6648C20.3968 12.2458 20.3968 11.7541 20.1896 11.3351C19.9512 10.8529 19.1797 10.5057 17.6367 9.81135L7.48483 5.24303C5.90879 4.53382 5.12078 4.17921 4.59799 4.32468C4.14397 4.45101 3.77572 4.78336 3.60365 5.22209C3.40551 5.72728 3.67772 6.54741 4.22215 8.18767L5.24829 11.2793C5.34179 11.561 5.38855 11.7019 5.407 11.8459C5.42338 11.9738 5.42321 12.1032 5.40651 12.231C5.38768 12.375 5.34057 12.5157 5.24634 12.7972Z" stroke="#B067F7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
