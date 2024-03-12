@@ -1,32 +1,33 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import "./EventDetailsPopup.css";
-import { useDispatch } from 'react-redux';
-import { openEventPopupActionCreator } from '../../../../redux/actions/calendarActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCommentToEvent, addDescriptionToEvent, addEventRequest, addEventSuccess, addLabelToSelectedLabelsList, openEventPopupActionCreator, setSelectedTask } from '../../../../redux/actions/calendarActions';
 import moment from 'moment';
 import ReactDatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import ReactSelect, { components } from 'react-select';
+import AddLabelPopup from './components/AddLabelPopup/AddLabelPopup';
 
 const CustomOption = (props) => {
     return (
         <components.Option {...props}>
             <div>
-               <span>
+                <span>
                     <svg width="16px" height="16px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <g fill={props.data.color}>
                             <path fill="none" d="M0 0h24v24H0z" />
                             <path d="M3 3h9.382a1 1 0 0 1 .894.553L14 5h6a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-6.382a1 1 0 0 1-.894-.553L12 16H5v6H3V3z" />
                         </g>
                     </svg>
-               </span>
-                <span style={{ marginLeft: '5px' }}>{props.data.label}</span> 
+                </span>
+                <span style={{ marginLeft: '5px' }}>{props.data.label}</span>
             </div>
         </components.Option>
     );
 };
 
 const CustomValue = ({ data }) => (
-    <div style={{position: 'absolute', top: '5px', left: '0px'}}>
+    <div style={{ position: 'absolute', top: '5px', left: '0px' }}>
         <span>
             <svg width="16px" height="16px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <g fill={data.color}>
@@ -35,7 +36,7 @@ const CustomValue = ({ data }) => (
                 </g>
             </svg>
         </span>
-        <span style={{ marginLeft: '5px' }}>{data.label}</span> 
+        <span style={{ marginLeft: '5px' }}>{data.label}</span>
     </div>
 );
 
@@ -53,57 +54,47 @@ const priorities = [
     {
         label: 'Priority 1',
         color: '#D2453B',
-        value: 'p-1'
+        value: 1
     },
     {
         label: 'Priority 2',
         color: '#EB893A',
-        value: 'p-2'
+        value: 2
     },
     {
         label: 'Priority 3',
         color: '#2470E0',
-        value: 'p-3'
+        value: 3
     },
     {
         label: 'Priority 4',
         color: 'green',
-        value: 'p-4'
+        value: 4
     },
 ]
 
-const priorities1 = [
-    {
-        label: `<span>P1</span>`,
-        colorCode: '#D2453B',
-    },
-    {
-        label: `<span>P1</span>`,
-        colorCode: '#EB893A',
-    },
-    {
-        label: `<span>P1</span>`,
-        colorCode: '#2470E0',
-    },
-    {
-        label: `<span>P2</span>`,
-        colorCode: '#ffffff',
-    },
-]
 
 export default function EventDetailPopup(props) {
     const { setShowEventDetails, setEventsData, setSelectedEvent, selectedEvent } = props;
+    const { events, loading, errors, selectedLabels, selectedTask } = useSelector((state) => state.calendar);
+
     const [showPrimaryEventContentBorder, setPrimaryEventContentBorder] = useState(false);
-    const [primaryEventContentInputValue, setPrimaryEventContentInputValue] = useState('');
+    const [primaryEventContentInputValue, setPrimaryEventContentInputValue] = useState(selectedTask?.description);
     const [showCommentBox, setShowCommentBox] = useState(false);
     const [isTitleInputActive, setIsTitleInputActive] = useState(false);
-    const [startDate, setStartDate] = useState(selectedEvent.start);
-    const [endTime, setEndTime] = useState(moment(selectedEvent.end).format('HH:mm:ss'));
-    const [startTime, setStartTime] = useState(moment(selectedEvent.start).format('HH:mm:ss'));
-    const [inputEventTitle, setInputEventTitle] = useState(selectedEvent.title);
+    const [startDate, setStartDate] = useState(() => selectedTask?.start);
+    const [endTime, setEndTime] = useState(moment(selectedTask?.end).format('HH:mm:ss'));
+    const [startTime, setStartTime] = useState(moment(selectedTask?.start).format('HH:mm:ss'));
+    const [inputEventTitle, setInputEventTitle] = useState(selectedTask?.title || 'test');
+    const [commentValue, setCommentValue] = useState('');
+    const [commentsList, setCommentsList] = useState([]);
+    const [priority, setPriority] = useState(selectedTask?.priority || priorities[0]);
+    const [showAddLabelPopup, setShowAddLabelPopup] = useState(false);
 
 
     const inputEventTitleRef = useRef(null);
+    const inputCommentAreaRef = useRef(null);
+    const addLabelPopupRef = useRef(null);
 
     const dispatch = useDispatch();
 
@@ -111,14 +102,40 @@ export default function EventDetailPopup(props) {
         setPrimaryEventContentBorder(true)
     }
     const handelPrimaryEventInputChange = (e) => {
-
         setPrimaryEventContentInputValue(e.target.value)
     }
 
 
+
+    const handelCommentChange = (e) => {
+        setCommentValue(e.target.value)
+    }
+
+
+    const postTaskApi = async (newTask) => {
+        const taskDataMapping = {
+            name: newTask.title,
+            description: newTask.description,
+            start_at: new Date(newTask.start).toISOString(),
+            end_at: new Date(newTask.end).toISOString(),
+            label: newTask.labels[0].title,
+            priority: newTask.priority.value,
+            comments: newTask.comments
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(taskDataMapping)
+        };
+
+        let task = await fetch('https://x8ki-letl-twmt.n7.xano.io/api:KgufNWJV/tasks', requestOptions);
+        task = await task.json();
+    }
+
     const submitEventDetails = () => {
-        const startDate = moment(selectedEvent.start);
-        const endDate = moment(selectedEvent.end);
+        const startDate = moment(selectedTask.start);
+        const endDate = moment(selectedTask.end);
 
         const modifiedStartTimeMoment = moment(startTime, 'HH:mm');
         const modifiedEndTimeMoment = moment(endTime, 'HH:mm');
@@ -128,27 +145,111 @@ export default function EventDetailPopup(props) {
         const mergedEndDateTime = mergedDateTime(endDate, modifiedEndTimeMoment)
 
         const newEvent = {
-            ...selectedEvent,
+            ...selectedTask,
             start: mergedStartDateTime,
             end: mergedEndDateTime,
-            title: inputEventTitle
+            title: inputEventTitle,
+            labels: selectedLabels.filter((label) => label.checked),
+            comments: selectedTask?.comments,
+            priority: priority,
+            description: selectedTask.description
         }
-       
-        setEventsData((prevState) => [...prevState, newEvent])
+
+        // dispatch(addEventRequest);
+        dispatch(addEventSuccess(newEvent));
         dispatch(openEventPopupActionCreator(false))
+        postTaskApi(newEvent)
+
+        // setTimeout(()=>{
+
+        //     // setEventsData((prevState) => [...prevState, newEvent])
+        //     dispatch(openEventPopupActionCreator(false))
+        // }, 500)
     }
 
     const handleChange = (e) => {
         const { value, name } = e.target;
-        if(name === 'endTime'){
+        if (name === 'endTime') {
             setEndTime(value)
-        } else if (name === 'startTime'){
+        } else if (name === 'startTime') {
             setStartTime(value)
-        }else if('eventTitle'){
+        } else if ('eventTitle') {
             setInputEventTitle(value)
         }
 
     }
+
+    const handleShowCommentBox = () => {
+        setShowCommentBox(true);
+        if (inputCommentAreaRef.current) {
+
+            inputCommentAreaRef.current.focus();
+        }
+    }
+
+    const handleDescription = () => {
+        // const description = {
+        //     eventId: selectedTask.id,
+        //     description: primaryEventContentInputValue
+        // }
+        // dispatch(addDescriptionToEvent(description))
+        // setSelectedEvent(prevState => ({ ...prevState, descriptions: primaryEventContentInputValue }))
+        setPrimaryEventContentBorder(false)
+        dispatch(setSelectedTask({ ...selectedTask, description: primaryEventContentInputValue }))
+        // setPrimaryEventContentInputValue('')
+    }
+
+    const postSelectedTaskCommentApi = async (newComment) => {
+        if (!newComment.task_id){
+            return;
+        }
+        const commentDataMapping = {
+            comment: newComment.comment,
+            task_id: newComment.task_id
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(commentDataMapping)
+        };
+
+        let comment = await fetch('https://x8ki-letl-twmt.n7.xano.io/api:KgufNWJV/comments', requestOptions);
+        comment = await comment.json();
+        setTimeout(()=>{
+            getSelectedTasksComments(newComment.task_id)
+        }, 0)
+    }
+
+    const handelComment = () => {
+        const newComment = {
+            task_id: selectedTask?.id,
+            comment: commentValue
+        }
+        console.log("newComment", selectedTask, newComment)
+        // dispatch(addCommentToEvent(newComment))
+        // setSelectedEvent(prevState => ({ ...prevState, comments: [...prevState?.comments, newComment] }))
+        postSelectedTaskCommentApi(newComment)
+    
+        setCommentValue('')
+    }
+
+    const handleRemoveSelectedLabel = (selectedLabel) => {
+        dispatch(addLabelToSelectedLabelsList(selectedLabel))
+    }
+
+    const getSelectedTasksComments = async (task_id) => {
+        let comments = await fetch('https://x8ki-letl-twmt.n7.xano.io/api:KgufNWJV/comments/' + task_id);
+        comments = await comments.json();
+        setCommentsList([comments])
+    }
+
+    useEffect(() => {
+        if (selectedTask?.id){
+            getSelectedTasksComments(selectedTask?.id)
+        }
+    }, [selectedTask?.id])
+    
 
     useEffect(() => {
         function handleClickOutside(event) {
@@ -156,12 +257,26 @@ export default function EventDetailPopup(props) {
                 setIsTitleInputActive(false)
             }
         }
-        
+
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [inputEventTitleRef]);
+
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (addLabelPopupRef.current && !addLabelPopupRef.current.contains(event.target)) {
+                setShowAddLabelPopup(false)
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [addLabelPopupRef]);
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -176,16 +291,16 @@ export default function EventDetailPopup(props) {
                         </span>
                         &nbsp;
                         &nbsp;
-                        <span>{selectedEvent.title} </span>
+                        <span>{selectedTask?.title} </span>
                     </div>
                     <div className='event_details__header-right'>
-                        <span>
+                        {/* <span>
                             <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M7 12C7 13.1046 6.10457 14 5 14C3.89543 14 3 13.1046 3 12C3 10.8954 3.89543 10 5 10C6.10457 10 7 10.8954 7 12Z" fill="#1C274C" />
                                 <path d="M14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12Z" fill="#1C274C" />
                                 <path d="M21 12C21 13.1046 20.1046 14 19 14C17.8954 14 17 13.1046 17 12C17 10.8954 17.8954 10 19 10C20.1046 10 21 10.8954 21 12Z" fill="#1C274C" />
                             </svg>
-                        </span>
+                        </span> */}
                         <span
                             className='btn'
                             onClick={() => {
@@ -201,84 +316,120 @@ export default function EventDetailPopup(props) {
                 </header>
                 <main className='event_details__content'>
                     <section className='event_details__content-main'>
-                        <div style={{height: 'calc(100% - 60px)'}}>
-                        <div>
-                            <div className='event_details__primary_event'>
-                                <div className='content_main__checkMarkContainer'></div>
-                                <div className={`${showPrimaryEventContentBorder ? 'content_border' : ''} event_details__primary_event_content `}>
-                                    <h3> Do a weekly review of my tasks and goals</h3>
-                                    <div className='event_details__primary_event_details'>
-                                        {
-                                            !primaryEventContentInputValue?.length ? <div>
-                                                <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M4 12H20M4 8H20M4 16H12" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                            </div> : null
-                                        }
+                        <div style={{ height: 'calc(100% - 60px)' }}>
+                            <div>
+                                <div className='event_details__primary_event'>
+                                    <div className='content_main__checkMarkContainer'></div>
+                                    <div className={`${showPrimaryEventContentBorder ? 'content_border' : ''} event_details__primary_event_content `}>
+                                        <h3> Do a weekly review of my tasks and goals</h3>
+                                        <div className='event_details__primary_event_details'>
+                                           
+                                            {
+                                                primaryEventContentInputValue === '' ? <div>
+                                                    <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M4 12H20M4 8H20M4 16H12" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                    </svg>
+                                                </div> : null
+                                            }
 
-                                        <div className='event_details__primary_event_input_area'>
-                                            <textarea placeholder='Description'
-                                                onFocus={handelPrimaryEventInputFocus}
-                                                onChange={handelPrimaryEventInputChange}
-                                            />
+                                            <div className='event_details__primary_event_input_area'>
+                                                <textarea
+                                                    placeholder='Description'
+                                                    value={primaryEventContentInputValue}
+                                                    onFocus={handelPrimaryEventInputFocus}
+                                                    onChange={handelPrimaryEventInputChange}
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
+                                {
+                                    showPrimaryEventContentBorder ? <div className='primary_event_content__btn_container'>
+                                        <button className='btn_cancel'
+                                            onClick={() => setPrimaryEventContentBorder(false)}
+                                        >
+                                            Cancel
+                                        </button>
+                                        <button className='btn_save'
+                                            onClick={handleDescription}
+                                        >
+                                            Save
+                                        </button>
+                                    </div> : null
+                                }
                             </div>
-                            {
-                                showPrimaryEventContentBorder ? <div className='primary_event_content__btn_container'>
-                                    <button className='btn_cancel'
-                                        onClick={() => setPrimaryEventContentBorder(false)}
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button className='btn_save'>
-                                        Save
-                                    </button>
-                                </div> : null
-                            }
-                        </div>
-                        <div className='event_details__comment_section'>
-                            {
-                                showCommentBox ?
-                                    <div className='event_details__primary_event'>
-                                        <div className='event_details__primary_event_content content_border'>
-                                            <div className='event_details__primary_event_details'>
-                                                <div className='event_details__primary_event_input_area'>
-                                                    <textarea placeholder='Comment'
-                                                        onChange={handelPrimaryEventInputChange}
-                                                    />
+                            <div className='event_details__comment_section'>
+                                {
+                                    commentsList?.length ?
+                                        <div className=''>
+                                            {
+                                                commentsList.map((_comment) => {
+                                                    return <div className='comments_list__comment' key={_comment.id}>
+                                                        <div className='comment_default__profile_icon'>
+                                                            <span>A</span>
+                                                        </div>
+                                                        <div className='comments_list__comment_details'>
+                                                            <div className='comments_list__comment_user_details'
+                                                            >
+                                                                Avenger
+                                                            </div>
+                                                            <div className='comments_list__comment_text'
+                                                            >
+                                                                {_comment.comment}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                })
+                                            }
+                                        </div> : null
+                                }
+
+                                {
+                                    showCommentBox ?
+                                        <div className='event_details__primary_event'>
+                                            <div className='event_details__primary_event_content content_border'>
+                                                <div className='event_details__primary_event_details'>
+                                                    <div className='event_details__primary_event_input_area'>
+                                                        <textarea
+                                                            ref={inputCommentAreaRef}
+                                                            placeholder='Comment'
+                                                            value={commentValue}
+                                                            onChange={handelCommentChange}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div className='primary_event_content__btn_container'>
+                                                    <button className='btn_cancel'
+                                                        onClick={() => setShowCommentBox(false)}
+                                                    >
+                                                        Cancel
+                                                    </button>
+                                                    <button
+                                                        className='btn_save'
+                                                        onClick={handelComment}
+                                                    >
+                                                        Comment
+                                                    </button>
                                                 </div>
                                             </div>
-                                            <div className='primary_event_content__btn_container'>
-                                                <button className='btn_cancel'
-                                                    onClick={() => setShowCommentBox(false)}
-                                                >
-                                                    Cancel
-                                                </button>
-                                                <button className='btn_save'>
-                                                    Comment
-                                                </button>
+                                        </div>
+                                        :
+                                        <div className='event_details__comment_default'>
+                                            <div className='comment_default__profile_icon'>
+                                                <span>A</span>
+                                                {/* <img src="https://dcff1xvirvpfp.cloudfront.net/a11ab89c4f874238b565c59b69db36b3_small.jpg" /> */}
+                                            </div>
+                                            <div className='comment_default__comment_input_placeholder'
+                                                onClick={handleShowCommentBox}
+                                            >
+                                                Comment
                                             </div>
                                         </div>
-                                    </div>
-                                    :
-                                    <div className='event_details__comment_default'>
-                                        <div className='comment_default__profile_icon'>
-                                          <span>A</span>
-                                            {/* <img src="https://dcff1xvirvpfp.cloudfront.net/a11ab89c4f874238b565c59b69db36b3_small.jpg" /> */}
-                                        </div>
-                                        <div className='comment_default__comment_input_placeholder'
-                                            onClick={() => setShowCommentBox(true)}
-                                        >
-                                            Comment
-                                        </div>
-                                    </div>
-                            }
+                                }
 
 
-                        </div>
+                            </div>
                         </div>
                         <footer>
                             <button className='btn_save submit__event' onClick={submitEventDetails}>Submit</button>
@@ -378,8 +529,10 @@ export default function EventDetailPopup(props) {
                                 <h6>Priority</h6>
                                 <ReactSelect
                                     className="basic-single"
+                                    value={priority}
+                                    onChange={(e) => setPriority(e)}
                                     classNamePrefix="select"
-                                    defaultValue={priorities[0]}
+                                    // defaultValue={priorities[0]}
                                     // isDisabled={isDisabled}
                                     // isLoading={isLoading}
                                     // isClearable={isClearable}
@@ -398,7 +551,7 @@ export default function EventDetailPopup(props) {
                                     styles={{
                                         option: (provided, state) => ({
                                             ...provided,
-                                            backgroundColor: state.isSelected ? '#EEDDFC' : 'white' ,
+                                            backgroundColor: state.isSelected ? '#EEDDFC' : 'white',
                                             // backgroundColor: state.isSelected ? state.data.color : 'white',
                                             color: state.isSelected ? '#202020' : state.data.color,
                                         }),
@@ -428,7 +581,7 @@ export default function EventDetailPopup(props) {
                                 <hr />
                             </li>
                             <li>
-                                <div>
+                                <div onClick={() => setShowAddLabelPopup(true)}>
                                     <span style={{ marginTop: '4px' }}>
                                         <svg width="16px" height="16px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M6 12H18M12 6V18" stroke="#999999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -438,6 +591,29 @@ export default function EventDetailPopup(props) {
                                         Labels
                                     </span>
                                 </div>
+                                <div className='selected__label_tiles' >
+                                    {
+                                        selectedLabels.map((label) => {
+                                            if (label.checked) {
+                                                return <div className='selected__label_tile'>
+                                                    <label>{label.title}</label>
+                                                    <span onClick={() => handleRemoveSelectedLabel(label)}>
+                                                        <svg width="16px" height="16px" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M6.96967 16.4697C6.67678 16.7626 6.67678 17.2374 6.96967 17.5303C7.26256 17.8232 7.73744 17.8232 8.03033 17.5303L6.96967 16.4697ZM13.0303 12.5303C13.3232 12.2374 13.3232 11.7626 13.0303 11.4697C12.7374 11.1768 12.2626 11.1768 11.9697 11.4697L13.0303 12.5303ZM11.9697 11.4697C11.6768 11.7626 11.6768 12.2374 11.9697 12.5303C12.2626 12.8232 12.7374 12.8232 13.0303 12.5303L11.9697 11.4697ZM18.0303 7.53033C18.3232 7.23744 18.3232 6.76256 18.0303 6.46967C17.7374 6.17678 17.2626 6.17678 16.9697 6.46967L18.0303 7.53033ZM13.0303 11.4697C12.7374 11.1768 12.2626 11.1768 11.9697 11.4697C11.6768 11.7626 11.6768 12.2374 11.9697 12.5303L13.0303 11.4697ZM16.9697 17.5303C17.2626 17.8232 17.7374 17.8232 18.0303 17.5303C18.3232 17.2374 18.3232 16.7626 18.0303 16.4697L16.9697 17.5303ZM11.9697 12.5303C12.2626 12.8232 12.7374 12.8232 13.0303 12.5303C13.3232 12.2374 13.3232 11.7626 13.0303 11.4697L11.9697 12.5303ZM8.03033 6.46967C7.73744 6.17678 7.26256 6.17678 6.96967 6.46967C6.67678 6.76256 6.67678 7.23744 6.96967 7.53033L8.03033 6.46967ZM8.03033 17.5303L13.0303 12.5303L11.9697 11.4697L6.96967 16.4697L8.03033 17.5303ZM13.0303 12.5303L18.0303 7.53033L16.9697 6.46967L11.9697 11.4697L13.0303 12.5303ZM11.9697 12.5303L16.9697 17.5303L18.0303 16.4697L13.0303 11.4697L11.9697 12.5303ZM13.0303 11.4697L8.03033 6.46967L6.96967 7.53033L11.9697 12.5303L13.0303 11.4697Z" fill="#999999" />
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            }
+
+                                        })
+                                    }
+                                </div>
+                                {
+                                    showAddLabelPopup ? <div ref={addLabelPopupRef}>
+                                        <AddLabelPopup />
+                                    </div> : null
+                                }
+
 
                                 <hr />
                             </li>
@@ -448,3 +624,28 @@ export default function EventDetailPopup(props) {
         </div>
     )
 }
+
+
+// function SelectedTiles(selectedLabels){
+ 
+//     console.log(",sndfkjsnfkjnskjfnskdjfn", selectedLabels)
+//     return <div className='selected__label_tiles' >
+//         {
+//             selectedLabels.map((label) => {
+//                 if (label.checked) {
+//                     return <div className='selected__label_tile'>
+//                         <label>{label.title}</label>
+//                         <span onClick={() => handleRemoveSelectedLabel(label)}>
+//                             <svg width="16px" height="16px" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+//                                 <path d="M6.96967 16.4697C6.67678 16.7626 6.67678 17.2374 6.96967 17.5303C7.26256 17.8232 7.73744 17.8232 8.03033 17.5303L6.96967 16.4697ZM13.0303 12.5303C13.3232 12.2374 13.3232 11.7626 13.0303 11.4697C12.7374 11.1768 12.2626 11.1768 11.9697 11.4697L13.0303 12.5303ZM11.9697 11.4697C11.6768 11.7626 11.6768 12.2374 11.9697 12.5303C12.2626 12.8232 12.7374 12.8232 13.0303 12.5303L11.9697 11.4697ZM18.0303 7.53033C18.3232 7.23744 18.3232 6.76256 18.0303 6.46967C17.7374 6.17678 17.2626 6.17678 16.9697 6.46967L18.0303 7.53033ZM13.0303 11.4697C12.7374 11.1768 12.2626 11.1768 11.9697 11.4697C11.6768 11.7626 11.6768 12.2374 11.9697 12.5303L13.0303 11.4697ZM16.9697 17.5303C17.2626 17.8232 17.7374 17.8232 18.0303 17.5303C18.3232 17.2374 18.3232 16.7626 18.0303 16.4697L16.9697 17.5303ZM11.9697 12.5303C12.2626 12.8232 12.7374 12.8232 13.0303 12.5303C13.3232 12.2374 13.3232 11.7626 13.0303 11.4697L11.9697 12.5303ZM8.03033 6.46967C7.73744 6.17678 7.26256 6.17678 6.96967 6.46967C6.67678 6.76256 6.67678 7.23744 6.96967 7.53033L8.03033 6.46967ZM8.03033 17.5303L13.0303 12.5303L11.9697 11.4697L6.96967 16.4697L8.03033 17.5303ZM13.0303 12.5303L18.0303 7.53033L16.9697 6.46967L11.9697 11.4697L13.0303 12.5303ZM11.9697 12.5303L16.9697 17.5303L18.0303 16.4697L13.0303 11.4697L11.9697 12.5303ZM13.0303 11.4697L8.03033 6.46967L6.96967 7.53033L11.9697 12.5303L13.0303 11.4697Z" fill="#999999" />
+//                             </svg>
+//                         </span>
+//                     </div>
+//                 }
+
+//             })
+//         }
+//     </div>
+    
+    
+// }

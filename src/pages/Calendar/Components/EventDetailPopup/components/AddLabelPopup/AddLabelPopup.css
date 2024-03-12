@@ -1,0 +1,44 @@
+.add_label_popup{
+    width: 100%;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border-radius: .4rem;
+    padding: .5rem;
+}
+.add_label_popup input{
+    width: 100%;
+    border: 1px solid #999999;
+    padding: .2rem;
+    border-radius: .2rem;
+    margin-bottom: .4rem;
+}
+
+.label_not_exist{
+    color: #999999;
+}
+
+.label__list_item{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+.label__list_item:hover{
+  background-color: #f3f3f3;
+}
+.label__list_item_checkbox{
+}
+.label__list_item_checkbox input{
+    
+   
+  
+ 
+}
+
+.new_label{
+   display: flex;
+   align-items: center; 
+}
+.new_label__name{
+    font-weight: 600;
+    margin-left: 10px;
+}

@@ -118,6 +118,24 @@ h6 {
     margin-left: 1.5rem;
 }
 
+.comments_list__comment{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1rem;
+    color: #202020;
+}
+.comments_list__comment_details{
+    margin-left: .4rem;
+}
+.comments_list__comment_user_details{
+    font-size: .8rem;
+    font-weight: 800;
+}
+.comments_list__comment_text{
+    font-size: .8rem;
+        font-weight: 400;
+}
+
 .event_details__comment_default {
     display: flex;
     gap: 10px;
@@ -236,6 +254,30 @@ input[type='time']::-webkit-calendar-picker-dropdown {
     /* Change to your desired background color */
 }
 
+.selected__label_tiles{
+    display: flex;
+    overflow-x: auto;
+}
+
+.selected__label_tile{
+    padding: 0 .4rem;
+    display: flex;
+    justify-content: center;
+   align-items: center;
+   background-color: #cecccc;
+   border-radius: 4px;
+   color: #202020;
+}
+.selected__label_tile span{
+    padding: 4px 4px 0px 4px;
+    margin: 4px 0px 2px 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.selected__label_tile span:hover{
+    background-color: #808080;
+   
+}
 
 /* date picker */
 .date__icon {
