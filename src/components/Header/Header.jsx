@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Header.css';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const navigationPath = [
   {
@@ -14,6 +14,10 @@ const navigationPath = [
   {
     pathName: 'Timer',
     path: '/layout/timer',
+  },
+  {
+    pathName: 'Agents',
+    path: '/layout/agents',
   },
   // {
   //   pathName: 'Page-4',
@@ -70,6 +74,8 @@ export default function Header() {
     const userFromSessionStorage = JSON.parse(sessionStorage.getItem('user'));
     return userFromSessionStorage || null;
   });
+  const { pathname } = useLocation();
+  console.log("location", pathname)
   const handleSignOut = () => {
     sessionStorage.removeItem('user');
     setUserData(null)
@@ -83,7 +89,7 @@ export default function Header() {
   }, []);
   
   return (
-    <nav className='header__container'>
+    <nav className={`${pathname === '/' ? 'header__container-bg' : ''} header__container`}>
       <div className='header__logo'>
         <Link to="/">
           <h3>React-AI-Web</h3>
@@ -95,7 +101,7 @@ export default function Header() {
             <React.Fragment key={nav.pathName}>
               <NavLink
                 to={nav.path}
-                className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link`}
+                className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link ${pathname === '/' ? 'nav-link-color-grey' : 'nav-link-color-dark'}`}
                 exact="true"
               >
                 <span className='nav_text'>{nav.pathName}</span>
@@ -108,7 +114,7 @@ export default function Header() {
         <NavLink
           // to='/sign-in'
           to={userData?.email ? '/' : '/sign-in'} 
-          className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link`}
+          className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link ${pathname === '/' ? 'nav-link-color-grey' : 'nav-link-color-dark'}`}
           exact="true"
         >
           {
@@ -117,7 +123,7 @@ export default function Header() {
         </NavLink>
         <NavLink
           to='/sign-up'
-          className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link`}
+          className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link ${pathname === '/' ? 'nav-link-color-grey' : 'nav-link-color-dark'}`}
           exact="true"
         >
           <span className='nav_text'>Sign Up</span>

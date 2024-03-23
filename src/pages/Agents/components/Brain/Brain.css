@@ -1,0 +1,42 @@
+.brain__container{
+    padding: 1rem;
+}
+
+.brain__chat{
+    margin: 1rem 1rem 1.5rem 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+   
+}
+
+.brain__chat_header{
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: .2rem;
+}
+
+.chat_header__user_icon{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background-color: var(--secondary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.chat_header__user_name{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.bot{
+    background-color: rgb(209 213 219);
+}
+.user{
+    background-color: rgb(185, 242, 250);
+}
+

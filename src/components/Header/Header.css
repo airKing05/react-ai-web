@@ -5,6 +5,9 @@
   padding: 1rem 2rem;
   height: 60px;
 }
+.header__container-bg{
+  background-color: var(--third-color);
+}
 
 .header__logo {
   width: 20%;
@@ -45,7 +48,13 @@
 .nav-link {
   /* Your default link styles here */
   text-decoration: none;
-  color: #202020;
+  /* color: #202020; */
+}
+.nav-link-color-grey{
+  color: var(--forth-color);
+}
+.nav-link-color-dark {
+  color: var(--fifth-color);
 }
 
 .active {

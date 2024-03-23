@@ -7,6 +7,7 @@ import PageNotFound from './pages/PageNotFound/PageNotFound'
 import SignIn from './pages/Auth/SignIn'
 import SignUp from './pages/Auth/SignUp'
 import Header from './components/Header/Header'
+import "./colors.css";
 
 function App() {
   return (

@@ -42,7 +42,7 @@ export default function Chat() {
         <div className='chat__container'>
             <div className='chat_content'>
                 <h2>Chat with us</h2>
-                <div className='chat__voice_part'>
+                {/* <div className='chat__voice_part'>
                     <div className='voice_btn'>
                         <button onClick={startListeningFn}>Start speaking</button>
                         <button onClick={stopListeningFn}>Stop speaking</button>
@@ -54,9 +54,8 @@ export default function Chat() {
                           &nbsp; {listening ? 'on' : 'off'}
                         </span>
                     </div>
-                    {/* <p>{transcript}</p> */}
                     <div>{transcriptState}</div>
-                </div>
+                </div> */}
             {
                 showChatPopup ? <ChatPopup 
                         listening={listening}
