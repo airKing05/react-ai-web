@@ -2,8 +2,21 @@
     --primary-color: #007bff;
     --secondary-color: #6c757d;
     --success-color: #28a745;
-    --third-color: #040C36;
-    --forth-color: #8491A3;
-    --fifth-color: #202020;
+    --third-color: rgb(9,9,9);
+    --forth-color: #eff7ff9c;
+    /* --fifth-color: #202020; */
+    --sixth-color: hsla(0, 0%, 100%, .8);
+    --seventh-color: #2884df9c;
+    --eighth-color: hsla(0, 0%, 100%, .2);
+    --ninth-color: rgba(0, 0, 0, .3);
+    --tenth-color: rgba(253, 254, 255, .927);
+    --11th-color: rgb(20, 20, 20);
+    --12th-color: rgb(40,40,40);
+    --13th-color: rgb(30, 30, 30);
+    --14th-color: rgb(22,22,22);
+    --15th-color: rgb(200, 200, 200);
     /* Add more colors as needed */
 }
+
+/*   --third-color: #040C36; */
+/* --forth-color: #8491A3; */ 

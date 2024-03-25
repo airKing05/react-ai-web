@@ -1,9 +1,11 @@
 import React from 'react'
+import { CircularProgressbar } from 'react-circular-progressbar';
 import { useNavigate } from 'react-router-dom';
 
 export default function AgentCard(props) {
     const {agentId} = props
     const navigate = useNavigate();
+    const percentage = 66;
 
     const handleVideoClick = () => {
         navigate(`/layout/agent/${agentId}`);
@@ -16,7 +18,10 @@ export default function AgentCard(props) {
                 <label >Title of the task</label>
             </div>
               <div className='col-6 algin_items_right'>
-                <div className='progress_bar'> 100% </div>
+                {/* <div className='progress_bar'> 100% </div> */}
+                <div className='progress_bar'> 
+                   <CircularProgressbar value={percentage} text={`${percentage}%`} />
+                 </div> 
                 <span>Task-2 is in progress</span>
               </div>
         </div>

@@ -31,7 +31,6 @@ export default function Code() {
         }
     }
 
-    console.log("codeValue", codeValue)
 
     return (
         <div>
@@ -52,7 +51,7 @@ export default function Code() {
         </div>
             
 
-            <div>
+            <div className='code_editor_container'>
                 <Editor
                     height="70vh"
                     defaultLanguage={selectedLanguage.value}
@@ -61,7 +60,7 @@ export default function Code() {
                     value={codeValue}
                     onChange={(value) => setCodeValue(value)}
                     onMount={handleEditorDidMount}
-                />;
+                />
             </div>
         </div>
     )

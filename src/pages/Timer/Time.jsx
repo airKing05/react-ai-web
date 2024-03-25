@@ -81,17 +81,17 @@ export default function Time() {
         <CircularProgressbarWithChildren
           value={percentage}
           text={MHSTime}
-          strokeWidth={5}
+          strokeWidth={10} //5
           styles={buildStyles({
             strokeLinecap: "butt",
-            pathColor: 'rgba(239, 100, 81)',
-            textColor: 'rgb(176, 103, 243)',
+            pathColor: 'rgb(100 98 98)', // rgba(239, 100, 81)
+            textColor: '#eff7ff9c', //'rgb(176, 103, 243)',
           })}
         >
           <RadialSeparators
             count={150}
             style={{
-              background: "#fff",
+              background: 'rgb(100 98 98)', // "#fff"
               width: "4px",
               // This needs to be equal to props.strokeWidth
               height: `${10}%`

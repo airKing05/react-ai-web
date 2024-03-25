@@ -23,12 +23,17 @@
     /* padding: .8rem 4rem; */
     border-radius: 5px;
     padding-inline: .8rem;
-    border: 1px solid rgb(133, 133, 133);
+    /* border: 1px solid rgb(133, 133, 133); */
+    border: 1px solid var(--eighth-color);
+    background-color: var(--11th-color);
+    color: var(--sixth-color);
 }
 
 .disabled__btn {
-    background-color: rgba(239, 239, 239) !important;
+    /* background-color: rgba(239, 239, 239) !important; */
+    background-color: rgb(100 98 98) !important;
     color: rgb(133, 133, 133) !important;
+    cursor: not-allowed;
 }
 
 .timer_controller__container button {
@@ -36,7 +41,9 @@
     border: none;
     border-radius: 5px;
     /* background-color: rgba(239, 100, 81); */
-    background-color: rgb(176, 103, 243);
-    color: #ffffff;
+    /* background-color: rgb(176, 103, 243); */
+    background-color: var(--15th-color);
+    /* color: #ffffff; */
+    color: var(--third-color);
    
 }

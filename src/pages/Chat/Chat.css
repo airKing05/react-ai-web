@@ -10,7 +10,8 @@
 }
 
 .chat_content h2{
-  color: #202020;
+  /* color: #202020; */
+  color: var(--sixth-color);
 }
 
 .chat__voice_part{

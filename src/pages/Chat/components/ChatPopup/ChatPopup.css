@@ -6,13 +6,16 @@
     height: 550px;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    background-color: var(--11th-color);
+    border: 1px solid var(--eighth-color);
 }
 
 .chatPopup_header{
     display: flex;
     justify-content: space-between;
     height: 100px;
-    background-color: rgb(176, 103, 243);
+    background-color: var(--12th-color);
+    /* background-color: rgb(176, 103, 243); */
     /* background-color: rgba(64, 147, 107); */
     padding: 10px;
     border-top-left-radius: inherit;
@@ -23,14 +26,14 @@
     height: 100%;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: .4rem;
 }
 .chatPopup_header__you img{
    width: 5rem;
    height: 5rem;
 }
 .chatPopup_header__you span {
-    font-size: 2rem;
+    font-size: 1rem;
     font-weight: 600;
     /* color: rgb(193, 245, 230); */
     color: #ffffff;
@@ -38,7 +41,8 @@
 
 .chatPopup_chatArea{
     padding: 10px;
-    background-color: white;
+    /* background-color: white; */
+    background-color: var(--13th-color);
     height: calc(100% - 160px);
     overflow-y: auto;
 }
@@ -61,18 +65,22 @@
     max-width: 80%;
     padding: 10px;
     border-radius: 15px 15px 15px 0px;
-    background-color: rgb(245, 245, 245);
+    /* background-color: rgb(245, 245, 245); */
+    background-color: var(--14th-color);
     /* color: rgb(149, 149, 149); */
-    color: #202020;
+    /* color: #202020; */
+    color: var(--forth-color);
 }
 .chat_msg_me {
     max-width: 80%;
     padding: 10px;
     border-radius: 15px 15px 0px 15px;
     /* background-color: rgba(64, 147, 107); */
-    background-color: rgb(176, 103, 243);
+    /* background-color: rgb(176, 103, 243); */
+    background-color: var(--12th-color);
     /* color: rgb(193, 245, 230); */
-    color: #ffffff;
+    /* color: #ffffff; */
+    color: var(--sixth-color);
 }
 
 .chatPopup_inputArea{
@@ -96,7 +104,10 @@
     margin-left: 1px;
     border: none;
     /* color: rgb(109, 108, 108); */
-    color: #202020;
+    /* color: #202020; */
+    color: var(--sixth-color);
+    /* background-color: var(--12th-color); */
+    background-color: transparent;
    
     /* border-bottom: 2px solid rgb(176, 103, 243); */
 }

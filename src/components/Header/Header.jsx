@@ -89,7 +89,7 @@ export default function Header() {
   }, []);
   
   return (
-    <nav className={`${pathname === '/' ? 'header__container-bg' : ''} header__container`}>
+    <nav className={`${pathname === '/' ? 'header__container-bg' : ''} header__container header__container-bg`}>
       <div className='header__logo'>
         <Link to="/">
           <h3>React-AI-Web</h3>
@@ -101,7 +101,11 @@ export default function Header() {
             <React.Fragment key={nav.pathName}>
               <NavLink
                 to={nav.path}
-                className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link ${pathname === '/' ? 'nav-link-color-grey' : 'nav-link-color-dark'}`}
+                className={
+                `${({ isActive }) => (isActive ? "active" : "inactive")} 
+                nav-link 
+                `
+                }
                 exact="true"
               >
                 <span className='nav_text'>{nav.pathName}</span>
@@ -114,7 +118,7 @@ export default function Header() {
         <NavLink
           // to='/sign-in'
           to={userData?.email ? '/' : '/sign-in'} 
-          className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link ${pathname === '/' ? 'nav-link-color-grey' : 'nav-link-color-dark'}`}
+          className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link`}
           exact="true"
         >
           {
@@ -123,7 +127,7 @@ export default function Header() {
         </NavLink>
         <NavLink
           to='/sign-up'
-          className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link ${pathname === '/' ? 'nav-link-color-grey' : 'nav-link-color-dark'}`}
+          className={`${({ isActive }) => (isActive ? "active" : "inactive")} nav-link`}
           exact="true"
         >
           <span className='nav_text'>Sign Up</span>

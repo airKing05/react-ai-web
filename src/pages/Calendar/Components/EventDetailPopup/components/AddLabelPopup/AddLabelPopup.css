@@ -6,10 +6,12 @@
 }
 .add_label_popup input{
     width: 100%;
-    border: 1px solid #999999;
+    /* border: 1px solid #999999; */
+    border: 1px solid var(--eighth-color);
     padding: .2rem;
     border-radius: .2rem;
     margin-bottom: .4rem;
+    background-color: transparent;
 }
 
 .label_not_exist{
@@ -21,9 +23,11 @@
     align-items: center;
     width: 100%;
     justify-content: space-between;
+    color: var(--forth-color);
 }
 .label__list_item:hover{
-  background-color: #f3f3f3;
+  /* background-color: #f3f3f3; */
+  background-color: var(--11th-color);
 }
 .label__list_item_checkbox{
 }

@@ -9,11 +9,30 @@
 .language_selector__section > span {
     font-size: 14px;
     font-weight: 500;
+    color: var(--forth-color);
 }
 
 .language__selector{
   width: 10rem;
+  background-color: transparent;
 }
+.language__selector .css-13cymwt-control{
+    background-color: var(--11th-color);
+    border-color: var(--eighth-color);
+}
+.language__selector .css-1xc3v61-indicatorContainer{
+    color: var(--eighth-color);
+}
+.language__selector .css-1dimb5e-singleValue{
+    color: var(--sixth-color);
+    padding: 5px;
+}
+.language__selector .select__menu{
+    background-color: var(--11th-color);
+}
+/* .language__selector .select__control--is-focused .css-1pz4srz-control{
+     border-color: red !important;
+} */
 
 .copy__btn{
     display: flex;
@@ -23,7 +42,20 @@
 }
 .copy__btn button{
     padding-inline: 1rem;
-    background-color: hsl(0, 0%, 100%);
+    /* background-color: hsl(0, 0%, 100%); */
+    background-color: var(--11th-color);
+    color: var(--forth-color);
     border-radius: 4px;
-    border-color: hsl(0, 0%, 80%);
+    border: none;
+    /* border-color: hsl(0, 0%, 80%); */
+}
+.copy__btn button:hover {
+   background-color: var(--13th-color);
+}
+
+.monaco-editor{
+    border-radius: 10px;
+}
+.monaco-editor .overflow-guard{
+    border-radius: 10px;
 }

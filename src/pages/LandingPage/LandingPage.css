@@ -23,7 +23,7 @@
     font-size: 6rem;
     font-weight: 900;
     /* color: #202020; */
-    color: var(--forth-color);
+    color: var(--sixth-color);
     /* background-image: url("https://media.geeksforgeeks.org/wp-content/uploads/20231218222854/1.png"); */
     /* background-repeat: repeat;
     -webkit-background-clip: text;
@@ -39,7 +39,7 @@
     font-weight: 700;
     font-style: italic;
     margin-top: 1rem;
-    color: rgb(176, 103, 243);
+    color:  var(--forth-color); 
     /* text-decoration:underline; */
 }
 
@@ -50,10 +50,11 @@
     border-radius: 2rem;
     border: none;
     margin-top: 2rem;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    box-shadow: 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(0, 0, 0, .05);
     border: 4px solid rgb(216, 227, 237);
     /* color: #202020; */
-    color: var(--forth-color);
+    color: var(--third-color);
     
 }
 .home_content__heading button:hover {

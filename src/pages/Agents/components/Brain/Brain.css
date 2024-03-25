@@ -1,5 +1,6 @@
 .brain__container{
-    padding: 1rem;
+    /* padding: 1rem; */
+    color: var(--sixth-color);
 }
 
 .brain__chat{
@@ -20,7 +21,6 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background-color: var(--secondary-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,4 +39,90 @@
 .user{
     background-color: rgb(185, 242, 250);
 }
+.bot_icon {
+  background-color: var(--secondary-color);
+}
+.user_icon {
+background-color: var(--primary-color);
+}
 
+.brain_header{
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.brain_header h4{
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.brain_title{
+    display: flex;   
+    gap: .8rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+.brain_title label{
+    font-size: 1.1rem;
+}
+
+.brain_source__list{
+    display: flex;
+    gap: 1.4rem;
+}
+
+.source_card__container{
+    width: 16rem;
+    height: 5rem;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--11th-color);
+}
+
+.source_card__container h6{
+    font-size: .8rem;
+    color: var(--sixth-color);
+    margin-bottom: .6rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.source_link__details{
+    display: flex;
+    gap: .8rem;
+    color: var(--forth-color);
+    align-items: center;
+    font-size: .7rem;
+}
+
+.brain_links{
+    margin-top: .8rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--eighth-color);
+}
+.brain_links__btns{
+    display: flex;
+    color: var(--forth-color);
+    gap: 1.5rem;
+}
+.brain_links__right_btns{
+    justify-content: end;
+}
+
+.brain_links__btn{
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    cursor: pointer;
+    padding: .02rem .4rem;
+}
+.brain_links__btn:hover{
+    background-color: var(--13th-color);
+    border-radius: 3.4rem;
+    justify-content: center;
+}
+
+.brain_links__btn_icon{
+    margin-top: .2rem;
+}
