@@ -20,7 +20,8 @@
 }
 
 .home_content__heading h1 {
-    font-size: 6rem;
+    font-size: clamp(var(--font-3xl-s), var(--font-3xl-m), var(--font-3xl-l));
+    /* font-size: var(--font-3xl-l); */
     font-weight: 900;
     /* color: #202020; */
     color: var(--sixth-color);
@@ -35,18 +36,18 @@
     -webkit-font-smoothing: antialiased;
 }
 .home_content__heading h6 {
-    font-size: 2rem;
+    font-size: clamp(var(--font-xl-s), var(--font-xl-m), var(--font-xl-l));
     font-weight: 700;
-    font-style: italic;
+    /* font-style: italic; */
     margin-top: 1rem;
     color:  var(--forth-color); 
     /* text-decoration:underline; */
 }
 
 .home_content__heading button {
-    font-size: 1rem;
+    font-size: clamp(var(--font-s-s), var(--font-s-m), var(--font-s-l));
     font-weight: 600;
-    padding: 1rem 7rem;
+    padding: 1rem clamp(2rem, 7vw, 7rem);
     border-radius: 2rem;
     border: none;
     margin-top: 2rem;

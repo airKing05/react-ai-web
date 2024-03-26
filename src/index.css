@@ -4,9 +4,8 @@
     box-sizing: border-box;
 }
 body{
-font-family: Arial, sans-serif;
-  /* Define a fallback font stack */
-  font-size: 16px;
+  font-family: "Sans-serif", Arial, sans-serif;  /* Define a fallback font stack */
+  font-size: clamp(var(--font-m-s), var(--font-m-m), var(--font-m-l));
   line-height: 1.5;
   background-color: var(--third-color);
 }

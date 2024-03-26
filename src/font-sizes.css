@@ -1,0 +1,21 @@
+:root {
+    --font-3xl-l: 5.5rem;
+    --font-3xl-m: 6vw;
+    --font-3xl-s: 2.5rem;
+
+    --font-xl-l: 2rem;
+    --font-xl-m: 3vw;
+    --font-xl-s: .8rem;
+
+    --font-l-l: 1.5rem;
+    --font-l-m: 2.5vw;
+    --font-l-s: .8rem;
+
+    --font-m-l: 1.3rem;
+    --font-m-m: 2vw;
+    --font-m-s: .75rem;
+
+    --font-s-l: 1rem;
+    --font-s-m: 2vw;
+    --font-s-s: .6rem;
+}

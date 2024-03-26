@@ -6,8 +6,10 @@
 }
 
 .timer_clock__Container {
-    width: 500px;
-    height: 500px;
+    /* width: 500px; */
+     width:  clamp(15rem, 40vw, 36rem);
+    /* height: 500px; */
+     height: clamp(15rem, 40vw, 36rem);
     position: relative;
     left: 33%;
 }
@@ -22,11 +24,14 @@
 .timer_controller__container input {
     /* padding: .8rem 4rem; */
     border-radius: 5px;
-    padding-inline: .8rem;
+    /* padding-inline: .8rem; */
+    padding: clamp(.6rem, 7vw, .8rem) clamp(.6rem, 7vw, .8rem);
     /* border: 1px solid rgb(133, 133, 133); */
     border: 1px solid var(--eighth-color);
     background-color: var(--11th-color);
     color: var(--sixth-color);
+    font-size: clamp(var(--font-s-s), var(--font-s-m), var(--font-s-l));
+    
 }
 
 .disabled__btn {
@@ -37,7 +42,8 @@
 }
 
 .timer_controller__container button {
-    padding: .8rem 4rem;
+    /* padding: .8rem 4rem; */
+    padding: clamp(.6rem, 7vw, .8rem) clamp(2rem, 7vw, 4.4rem);
     border: none;
     border-radius: 5px;
     /* background-color: rgba(239, 100, 81); */
@@ -45,5 +51,6 @@
     background-color: var(--15th-color);
     /* color: #ffffff; */
     color: var(--third-color);
+    font-size: clamp(var(--font-s-s), var(--font-s-m), var(--font-s-l));
    
 }

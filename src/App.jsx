@@ -8,6 +8,7 @@ import SignIn from './pages/Auth/SignIn'
 import SignUp from './pages/Auth/SignUp'
 import Header from './components/Header/Header'
 import "./colors.css";
+import "./font-sizes.css";
 
 function App() {
   return (
