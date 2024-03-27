@@ -1,8 +1,11 @@
 import React from 'react'
 
-export default function TaskCard() {
+export default function TaskCard(props) {
+  const { openTaskCardPopup } = props
   return (
-    <div className='task_card__container'>
+    <div className='task_card__container cursor_pointer'
+      onClick={openTaskCardPopup}
+    >
         <p>Write the code for chat application ui</p>
         <div className='row'>
               <div className='col-6 task_card__ticket'>

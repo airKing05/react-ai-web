@@ -88,11 +88,13 @@ border-top: 1px solid var(--eighth-color);
     /* background-color: rgb(176, 103, 243) !important; */
     background-color: var(--15th-color) !important;
     color: var(--third-color) !important;
+    font-size: clamp(var(--font-2xs-s), var(--font-2xs-m), var(--font-2xs-l));
 }
 
 .rbc-show-more{
    color: var(--forth-color) !important;
    background-color: var(--12th-color) !important;
+   font-size: clamp(var(--font-3xs-s), var(--font-3xs-m), var(--font-3xs-l)) !important;
 }
 
 /* .rbc-day-bg +  */

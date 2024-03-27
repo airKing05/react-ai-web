@@ -5,7 +5,7 @@
 }
 body{
   font-family: "Sans-serif", Arial, sans-serif;  /* Define a fallback font stack */
-  font-size: clamp(var(--font-m-s), var(--font-m-m), var(--font-m-l));
+  font-size: clamp(var(--font-s-s), var(--font-s-m), var(--font-s-l));
   line-height: 1.5;
   background-color: var(--third-color);
 }
@@ -46,4 +46,17 @@ input::-webkit-inner-spin-button {
 
 .cursor_pointer{
   cursor: pointer;
+}
+
+.container_layover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  /* top: 10%;
+    left: 45%; */
+  border: 1px solid/ red;
+  /* background-color: rgb(5, 57, 57); */
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5)
 }

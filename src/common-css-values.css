@@ -20,6 +20,22 @@
     --font-s-l: 1rem;
     --font-s-m: 2vw;
     --font-s-s: .6rem;
+
+    /* --font-s-l: .9rem;
+    --font-s-m: vw;
+    --font-s-s: .6rem; */
+
+    --font-xs-l: .8rem;
+    --font-xs-m: 1vw;
+    --font-xs-s: .5rem;
+
+    --font-2xs-l: .7rem;
+    --font-2xs-m: .8vw;
+    --font-2xs-s: .4rem;
+
+    --font-3xs-l: .6rem;
+    --font-3xs-m: .6vw;
+    --font-3xs-s: .35rem;
     /* fonts */
 
     /* border radius */
