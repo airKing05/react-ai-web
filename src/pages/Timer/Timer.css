@@ -7,11 +7,12 @@
 
 .timer_clock__Container {
     /* width: 500px; */
-     width:  clamp(15rem, 40vw, 36rem);
+     width:  clamp(14rem, 30vw, 28rem);
     /* height: 500px; */
-     height: clamp(15rem, 40vw, 36rem);
+     height: clamp(14rem, 30vw, 28rem);
     position: relative;
-    left: 33%;
+    margin-inline: auto;
+    /* left: 33%; */
 }
 
 .timer_controller__container {

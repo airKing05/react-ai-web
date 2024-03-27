@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import "./Docs.css";
@@ -27,15 +27,26 @@ const toolbarOptions = [
 
 export default function Docs() {
     const [value, setValue] = useState('');
+    const quillRef = useRef(null);
 
     const modules = {
         toolbar: toolbarOptions
     };
 
+  
+
+  useEffect(() => {
+    if (quillRef.current) {
+      quillRef.current.focus();
+    }
+  }, []);
+
+
   return (
     <React.Fragment>
     <div className='docs__editor'>
         <ReactQuill 
+        ref={quillRef}
         theme="snow" 
         value={value} 
         onChange={setValue} 
