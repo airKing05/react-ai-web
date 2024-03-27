@@ -1,5 +1,7 @@
 :root {
-    --font-3xl-l: 5.5rem;
+
+    /* fonts */
+    --font-3xl-l: 5.4rem;
     --font-3xl-m: 6vw;
     --font-3xl-s: 2.5rem;
 
@@ -18,4 +20,15 @@
     --font-s-l: 1rem;
     --font-s-m: 2vw;
     --font-s-s: .6rem;
+    /* fonts */
+
+    /* border radius */
+    --border-radius-l-l: 1rem;
+    --border-radius-l-m: 1.2vw;
+    --border-radius-l-s: .5rem;
+
+    --border-radius-m-l: .8rem;
+    --border-radius-m-m: 1vw;
+    --border-radius-m-s: .4rem;
+    /* border radius */
 }

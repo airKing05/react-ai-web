@@ -4,7 +4,7 @@ import AgentCard from './components/AgentCard';
 
 export default function Agents() {
   return (
-      <div className='main__container'>
+      <div className='main__container agent__container'>
           <h2>List of all Agents</h2>
           <div className='agent_list__container'>
           {

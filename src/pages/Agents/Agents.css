@@ -1,3 +1,7 @@
+.agent__container h2{
+    color: var(--sixth-color);
+}
+
 .agent_list__container{
    display: flex;
    /* border: 1px solid red; */

@@ -93,6 +93,7 @@ h6 {
     padding-left: 2px;
     background-color: transparent;
     color: var(--sixth-color);
+    resize: none;
 }
 
 .primary_event_content__btn_container {

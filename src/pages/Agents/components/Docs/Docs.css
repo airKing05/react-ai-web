@@ -5,9 +5,16 @@
 .docs__editor .ql-toolbar.ql-snow{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    border: 1px solid var(--eighth-color);
+    color: var(--forth-color);
 }
 
 .docs__editor .ql-container.ql-snow{
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+
+.docs__editor .ql-container.ql-snow{
+    border: 1px solid var(--eighth-color);
+    color: var(--sixth-color);
 }

@@ -5,7 +5,7 @@ export default function SingleQuestionCard() {
   return (
     <>
           <section className='brain_header'>
-              <h4>what is data poisoning in ai</h4>
+              <h2>what is data poisoning in ai</h2>
           </section>
           <section className='brain_source'>
               <div className='brain_title'>
