@@ -84,14 +84,14 @@ export default function Time() {
           strokeWidth={10} //5
           styles={buildStyles({
             strokeLinecap: "butt",
-            pathColor: 'rgb(100 98 98)', // rgba(239, 100, 81)
-            textColor: '#eff7ff9c', //'rgb(176, 103, 243)',
+            pathColor: 'rgb(176, 103, 243)', // 'rgb(239, 100, 81)', // 'rgb(100 98 98)'
+            textColor: 'rgb(176, 103, 243)', // '#eff7ff9c'
           })}
         >
           <RadialSeparators
             count={150}
             style={{
-              background: 'rgb(100 98 98)', // "#fff"
+              background: "#fff", //'rgb(100 98 98)'
               width: "4px",
               // This needs to be equal to props.strokeWidth
               height: `${10}%`

@@ -56,7 +56,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--forth-color);
+    /* background-color: var(--forth-color); */
+    background-color: var(--16th-color);
+    color: var(--sixth-color);
 }
 
 .task_icon_container img {
@@ -161,8 +163,9 @@
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
-    background-color: var(--15th-color);
-    color: var(--third-color);
+    background-color: var(--16th-color); 
+    /* color: var(--third-color); */
+    color: var(--sixth-color);
     padding: .3rem;
 }
 
