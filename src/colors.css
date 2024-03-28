@@ -16,6 +16,10 @@
     --14th-color: rgb(22,22,22);
     --15th-color: rgb(200, 200, 200);
     --16th-color: rgb(176, 103, 243);
+
+    /* foe the disable state */
+    --17th-color: #5c5b5b;
+    --18th-color: rgba(0, 0, 0, 0.5)
     /* Add more colors as needed */
 }
 
